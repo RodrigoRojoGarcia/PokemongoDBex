@@ -1,0 +1,295 @@
+
+@font-face {
+    font-family: pokemon;
+    src: url('../PokemonDPPt.ttf')
+}
+
+body {
+    background: rgb(155, 216, 224);
+    color: blue;
+    font-family: pokemon;
+    font-size: 72px;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+button {
+    background: green;
+    font-size: 30px;
+    font-family: pokemon;
+    padding: 10px;
+    border-radius: 100px;
+    border: none;
+    transition: background 0.2s, transform 0.1s;
+    outline: none;
+}
+
+button:hover {
+    background: #173017;
+    transform: scale(1.1);
+}
+
+button:active {
+    background: black;
+    transform: scale(1);
+}
+
+/* Pokédex GO GO */
+
+.centered {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow-y: auto;
+    height: 100%;
+}
+
+.centered::-webkit-scrollbar {
+    width: 10px;
+}
+
+.centered::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+.centered::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: white;
+}
+.centered::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+    background: rgb(139, 139, 139);
+}
+
+#upperArea {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: red;
+    width: 700px;
+    height: 400px;
+}
+
+
+#upperScreen {
+    position: relative;
+}
+
+#header{
+    font-size: 60px;
+    background: rgb(235, 208, 135);
+    border-radius: 3px;
+    align-self: right;
+    position: absolute;
+    left: 286px;
+    top: 10px;
+    display: inline;
+    padding: 0 20px 0 20px;
+}
+
+#pokemonNameHeader {
+    font-size: 40px;
+    margin: 0px;
+}
+
+#imageBackground {
+    border-radius: 10px;
+    background: rgb(184, 250, 158);
+    width: 256px;
+    height: 380px;
+    position: relative;
+    top: 10px;
+}
+
+#image {
+    align-self: left;
+    display: inline;
+    position: relative;
+    top: 50px;
+}
+/*
+*   PANTALLA DE STATS/BREEDING/CATCHING/TC/FORMS
+*/
+#statsNameHeader{
+    font-size: 40px;
+    margin: 0px;
+}
+
+#stats {
+    background: rgb(255, 245, 199);
+}
+
+#breedingNameHeader{
+    font-size: 40px;
+    margin: 0px;
+}
+
+#breeding {
+    background: rgb(131, 130, 127);
+}
+
+#catchingNameHeader{
+    font-size: 40px;
+    margin: 0px;
+}
+
+#catching {
+    background: rgb(225, 199, 255);
+}
+
+#typeCompatibilityNameHeader{
+    font-size: 40px;
+    margin: 0px;
+}
+
+#typeCompatibility {
+    background: rgb(199, 255, 216);
+}
+
+#formsNameHeader{
+    font-size: 40px;
+    margin: 0px;
+}
+
+#forms {
+    background: rgb(199, 251, 255);
+}
+
+.dataScreen {
+    transition: all 0.2s;
+    border-radius: 10px;
+    width: 380px;
+    height: 250px;
+    position: absolute;
+    top: 60px;
+    left: 286px;
+    text-align: center;
+}
+
+
+
+/*
+*    BARRA DE CAMBIO DE STATS
+*/
+#toolbar {
+    background: rgb(253, 129, 243);
+    position: absolute;
+    /*display: inline;   */
+    top: 320px;
+    left: 286px;
+    width: 360px; 
+    border-radius: 100px;
+    text-align: center;  
+}
+
+#displayScreen{
+    margin: 0px;
+    padding: 0px;
+    display: inline;
+    position: relative;
+       
+}
+
+#displayL {
+    border-radius: 100px 0 0 100px;
+    position: relative;
+    width: 15%;
+    height: 110000%;
+    margin: 7px;
+    vertical-align: center;
+    float: left;
+    left: 0;
+    transition: left 0.2s, transform 0.1s;
+}
+
+#displayL:active {
+    left: -10px;
+}
+
+#displayR {
+    border-radius: 0 100px 100px 0;
+    position: relative;
+    width: 15%;
+    height: 100%;
+    margin: 7px;
+    vertical-align: center;
+    float: right;
+    left: 0;
+    transition: left 0.2s, transform 0.1s;
+}
+
+#displayR:active {
+    left: 10px;
+}
+
+#lowerArea {
+    margin: 10px;    
+    padding: 10px;
+    border-radius: 10px;
+    background: red;
+    width: 700px;
+    height: 400px;
+}
+
+/*
+ *    CUADRÍCULA
+ */
+#grid {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 256px;
+    width: 465px;
+    float: left;
+    
+}
+
+#grid > div {
+    width: 25px;
+    height: 25px;
+    margin: 2px;
+    padding: 18px;
+    font-size: 30px;
+    border-radius: 3px;
+    text-align: center;
+    background: rgb(199, 199, 199);
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+
+#grid > div:hover {
+    background: rgb(158, 158, 158);
+    transform: translate(0, -10px);
+}
+
+#grid > div:active {
+    background: rgb(0, 0, 0);
+    color: white;
+    transform: translateY(-5px);
+}
+
+#grid::-webkit-scrollbar {
+    width: 5px;
+}
+
+#grid::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+#grid::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: white;
+}
+#grid::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+    background: rgb(139, 139, 139);
+}
+
+#filtersPanel {
+    float: right;
+}
