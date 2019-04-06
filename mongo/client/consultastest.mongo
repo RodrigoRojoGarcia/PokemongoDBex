@@ -1,0 +1,10 @@
+
+db.pokemon.createIndex({name: 1});
+
+db.pokemon.dropIndex({name: 1});
+
+db.pokemon.find({name: "Bulbasaur"});
+
+db.pokemon.find({name: "Bulbasaur"}).count();
+
+db.pokemon.find({name: "Bulbasaur"}).explain("executionStats");

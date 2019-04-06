@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PokémongoDBex</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+        <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <script src="javascript/main.js"></script>
+    </head>
+
+    <body>
+        <!-- Wrapper General -->        
+        <div id = "Pokedex" class = "centered">
+
+            <!-- Wrapper Zona superior -->
+            <div id = "upperArea">
+
+                <!-- Wrapper pantalla superior -->
+                <div id = "upperScreen">
+                    
+                    <!-- Contiene el nombre, el número y los tipos del pokemon seleccionado -->
+                    <div id = "header">
+
+                        <!-- Nombre del pokemon -->
+                        <p id = "pokemonNameHeader">#12 Butterfree</p>
+
+                        <!-- Wrapper de los tipos del pokemon -->
+                        <div id = "pokemonTypeHeader">
+
+                        </div>
+                        
+                    </div>
+
+                    <!-- Wrapper de la imagen del pokémon-->
+                    <div id = "imageBackground">
+                        <!-- Imagen del pokémon seleccionado -->
+                        <img src = "/images/pokemon/12.png" id = "image"/>
+                    </div>
+                    
+
+                    <!-- Visualización de la pantalla de stats -->
+                    <div id = "stats" class = "dataScreen" style = "transform: scale(1)">
+                        <p id = "statsNameHeader">Stats</p>
+                        <p id = "statsText">El Mejor Pokimon Tipo Bicho</p>
+                        
+                    </div>
+                    
+                    <!-- Visualizacion de la pantalla de crianza -->
+                    <div id = "breeding" class = "dataScreen" style = "transform: scale(0)">
+                        <p id = "breedingNameHeader">Breeding</p>
+                        <p id = "breedingText">El breeding</p>
+                    </div>
+
+                    <!-- Visualizacion de la pantalla de captura -->
+                    <div id = "catching" class = "dataScreen" style = "transform: scale(0)">
+                        <p id = "catchingNameHeader">Catching</p>
+                        <p id = "catchingText">El catching</p>
+                    </div>
+                    
+                    <!-- Visualizacion de la pantalla de compatibilidad -->
+                    <div id = "typeCompatibility" class = "dataScreen" style = "transform: scale(0)">
+                        <p id = "typeCompatibilityNameHeader">Type Compatibility</p>
+                        <p id = "typeCompatibilityText">tipos de compatibilidad nano</p>
+                    </div>
+                    
+                    <!-- Visualizacion de la pantalla del instagram del pokemon -->
+                    <div id = "forms" class = "dataScreen" style = "transform: scale(0)">
+                        <p id = "formsNameHeader">Formitas</p>
+                        <p id = "formsText">formas del pokimon</p>
+                    </div>
+
+                    <!-- Wrapper la visualización -->
+                    <div id = "toolbar">
+                        <!-- Boton para pasar a la pantalla izq -->
+                        <button type = "button" id = "displayL">🡄</button>
+                        <!-- Pantalla de estadísticas que vislumbras -->
+                        <p id = "displayScreen"> Stats </p>
+                        <!-- Boton para pasar a la pantalla dcha -->
+                        <button type = "button" id = "displayR">🡆</button>                        
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Wrapper Zona inferior -->
+            <div id = "lowerArea">
+
+                <!-- Wrapper pantalla inferior -->
+                <div id = "lowerScreen">
+                    <!-- Container de la cuadrícula-->
+                    <div id="pokemonSelector">
+                        <!-- Cuadricula con los pokemon -->
+                        <div id = "grid" class = "inline">
+                            <div>E</div>
+                            <div>R</div>
+                            <div>E</div>
+                            <div>S</div>
+                            <div> </div>
+                            <div>G</div>
+                            <div>I</div>
+                            <div>L</div>
+                            <div>I</div>
+                            <div>P</div>
+                            <div>O</div>
+                            <div>L</div>
+                            <div>L</div>
+                            <div>A</div>
+                            <div>S</div>
+                            <div>uwu</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+                            <div>po</div>
+                            <div>lla</div>
+                            <div>:)</div>
+
+                        </div>
+
+                    </div>
+                    
+                    <!-- Panel lateral con los filtros -->
+                    <div id = "filtersPanel">
+
+                        <!-- El nombre del menu -->
+                        <p id="filtersText">Filters</p>
+
+                        <!-- Lista de filtros rapidos en checkbox -->
+                        <div id = "checkboxFiltersList">
+
+                        </div>
+
+                        <!-- Boton para desplegar el menu de filtros -->
+                        <button type = "button" id = "moreFilters">More filters</button>
+
+                    </div>
+
+                    <!-- Pantalla con los filtros desplegados -->
+                    <div id = "filtersScreen">
+
+                        <!-- Wrapper con los tipos -->
+                        <div id = "pokemonTypeFilter">
+
+                        </div>
+
+                        <!-- Wrapper con las generaciones -->
+                        <div id = "pokemonGenerationFilter">
+
+                        </div>
+
+                        <!-- Wrapper con las categorías -->
+                        <div id = "pokemonCategoryFilter">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            
+        </div>              
+        
+    </body>
+</html>
