@@ -2,17 +2,18 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Program",
+            "name": "Lanzar compilando",
             "request": "launch",
             "mainClass": "urjc.Program",
-            "projectName": "Pokedex"
+            "projectName": "Pokedex",
+            "preLaunchTask": "buildtsc"
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - App",
+            "name": "Lanzar sin compilar",
             "request": "launch",
-            "mainClass": "urjc.App",
-            "projectName": "Pokedex"
+            "mainClass": "urjc.Program",
+            "projectName": "Pokedex",
         }
     ]
 }

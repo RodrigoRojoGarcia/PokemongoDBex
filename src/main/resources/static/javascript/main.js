@@ -1,5 +1,5 @@
 console.log("polla");
-console.log("grande");
+console.log("gorda");
 console.log("UwU");
 var State;
 (function (State) {

@@ -2,11 +2,15 @@
     "compilerOptions": {
         "module": "commonjs",
         "sourceMap": true,
-        "outDir": "javascript",
+        "outDir": "src\\main\\resources\\static\\javascript",
         
         "noImplicitAny": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
         "strictBindCallApply": true
-    }
+    },
+
+    "exclude": [
+        "target"
+    ]
 }
