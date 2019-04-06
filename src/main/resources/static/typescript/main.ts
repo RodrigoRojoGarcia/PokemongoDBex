@@ -28,7 +28,9 @@ $(document).ready(function() {
     $("#displayR").click(function() {
         state = state == 4 ? 0 : (state + 1);
         updateScreensWithState(state);
-    }); 
+    });
+    
+    Connection.getCount(count => console.log(count));
 });
 
 function updateScreensWithState(state :State) {

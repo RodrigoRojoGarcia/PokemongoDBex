@@ -36,3 +36,14 @@ declare class jQuery {
     /** Añade el atributo hidden */
     hide() :void;
 }
+
+declare class jqXHR {
+    /** Ejecutar si la petición ha sido respondida correctamente */
+    done(callback :(data :string, status? :string, request? :jqXHR) => void) :jqXHR;
+    /** Ejecutar si ha habido algún problema al ejecutar la petición */
+    fail(callback :(request? :jqXHR, status? :string, errorThrown? :string) => void) :jqXHR;
+    /** Ejecutar cuando los callbacks de las funciones anteriores se han ejecutado */
+    then(callback :(data? :string, status? :string, request? :jqXHR) => void) :jqXHR;
+}
+
+declare type REST = "GET" | "PUT" | "POST" | "DELETE";

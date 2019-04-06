@@ -25,6 +25,7 @@ $(document).ready(function () {
         state = state == 4 ? 0 : (state + 1);
         updateScreensWithState(state);
     });
+    Connection.getCount(function (count) { return console.log(count); });
 });
 function updateScreensWithState(state) {
     if (!screenQueries || !$displayScreen)

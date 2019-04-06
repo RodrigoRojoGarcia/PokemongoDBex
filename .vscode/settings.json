@@ -1,3 +1,5 @@
 {
-    "tslint.exclude": "target"
+    "tslint.exclude": "target",
+    "liveServer.settings.root": "/src/main/resources/static",
+    "java.configuration.updateBuildConfiguration": "automatic"
 }
