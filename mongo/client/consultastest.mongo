@@ -9,4 +9,4 @@ db.pokemon.find({name: "Bulbasaur"}).count();
 
 db.pokemon.find({name: "Bulbasaur"}).explain("executionStats");
 
-db.pokemon.update({abilities: "['Intimidate', 'Shed Skin', 'Unnerve']"}, {$set: {abilities: ["Intimidate", "Shed Skin", "Unnerve"]}});
+db.pokemon.find({$or: [{type1: "fire"}, {type2: "fire"}]});
