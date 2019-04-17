@@ -6,14 +6,115 @@ public class Pokemon {
     private int hp, attack, defense, sp_attack, sp_defense, speed, baseTotal;
     private int weight, height, percentageMale;
     private int generation, pokedexNumber;
-    private boolean legendary;
+    private boolean legendary, custom;
     private String[] abilities;
 
     private int eggSteps, happiness, captureRate, experience;
     private int againstBug, againstDark, againstDragon, againstElectric, againstFairy, againstFight, againstFire, againstFlying, againstGhost, againstGrass, againstGround, againstIce, againstNormal, againstPoison, againstPsychic, againstRock, againstSteel, againstWater;
 
+    
+
     public Pokemon() {}
 
+    public Pokemon(String name, String japaneseName, String classification, String type1, String type2, 
+                    int hp, int attack, int defense, int sp_attack, int sp_defense, int speed, int baseTotal, 
+                    int weight, int height, int percentageMale, 
+                    int generation, 
+                    boolean legendary, boolean custom, 
+                    String[] abilities, 
+                    int eggSteps, int happiness, int captureRate, int experience, 
+                    int againstBug, int againstDark, int againstDragon, int againstElectric, int againstFairy, int againstFight, int againstFire, int againstFlying, int againstGhost, int againstGrass, int againstGround, int againstIce, int againstNormal, int againstPoison, int againstPsychic, int againstRock, int againstSteel, int againstWater) {
+        this.name = name;
+        this.japaneseName = japaneseName;
+        this.classification = classification;
+        this.type1 = type1;
+        this.type2 = type2;
+        this.hp = hp;
+        this.attack = attack;
+        this.defense = defense;
+        this.sp_attack = sp_attack;
+        this.sp_defense = sp_defense;
+        this.speed = speed;
+        this.baseTotal = baseTotal;
+        this.weight = weight;
+        this.height = height;
+        this.percentageMale = percentageMale;
+        this.generation = generation;
+        this.legendary = legendary;
+        this.custom = custom;
+        this.abilities = abilities;
+        this.eggSteps = eggSteps;
+        this.happiness = happiness;
+        this.captureRate = captureRate;
+        this.experience = experience;
+        this.againstBug = againstBug;
+        this.againstDark = againstDark;
+        this.againstDragon = againstDragon;
+        this.againstElectric = againstElectric;
+        this.againstFairy = againstFairy;
+        this.againstFight = againstFight;
+        this.againstFire = againstFire;
+        this.againstFlying = againstFlying;
+        this.againstGhost = againstGhost;
+        this.againstGrass = againstGrass;
+        this.againstGround = againstGround;
+        this.againstIce = againstIce;
+        this.againstNormal = againstNormal;
+        this.againstPoison = againstPoison;
+        this.againstPsychic = againstPsychic;
+        this.againstRock = againstRock;
+        this.againstSteel = againstSteel;
+        this.againstWater = againstWater;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " name='" + getName() + "'" +
+            ", japaneseName='" + getJapaneseName() + "'" +
+            ", classification='" + getClassification() + "'" +
+            ", type1='" + getType1() + "'" +
+            ", type2='" + getType2() + "'" +
+            ", hp='" + getHp() + "'" +
+            ", attack='" + getAttack() + "'" +
+            ", defense='" + getDefense() + "'" +
+            ", sp_attack='" + getSp_attack() + "'" +
+            ", sp_defense='" + getSp_defense() + "'" +
+            ", speed='" + getSpeed() + "'" +
+            ", baseTotal='" + getBaseTotal() + "'" +
+            ", weight='" + getWeight() + "'" +
+            ", height='" + getHeight() + "'" +
+            ", percentageMale='" + getPercentageMale() + "'" +
+            ", generation='" + getGeneration() + "'" +
+            ", pokedexNumber='" + getPokedexNumber() + "'" +
+            ", legendary='" + getLegendary() + "'" +
+            ", original='" + isOriginal() + "'" +
+            ", abilities='" + getAbilities() + "'" +
+            ", eggSteps='" + getEggSteps() + "'" +
+            ", happiness='" + getHappiness() + "'" +
+            ", captureRate='" + getCaptureRate() + "'" +
+            ", experience='" + getExperience() + "'" +
+            ", againstBug='" + getAgainstBug() + "'" +
+            ", againstDark='" + getAgainstDark() + "'" +
+            ", againstDragon='" + getAgainstDragon() + "'" +
+            ", againstElectric='" + getAgainstElectric() + "'" +
+            ", againstFairy='" + getAgainstFairy() + "'" +
+            ", againstFight='" + getAgainstFight() + "'" +
+            ", againstFire='" + getAgainstFire() + "'" +
+            ", againstFlying='" + getAgainstFlying() + "'" +
+            ", againstGhost='" + getAgainstGhost() + "'" +
+            ", againstGrass='" + getAgainstGrass() + "'" +
+            ", againstGround='" + getAgainstGround() + "'" +
+            ", againstIce='" + getAgainstIce() + "'" +
+            ", againstNormal='" + getAgainstNormal() + "'" +
+            ", againstPoison='" + getAgainstPoison() + "'" +
+            ", againstPsychic='" + getAgainstPsychic() + "'" +
+            ", againstRock='" + getAgainstRock() + "'" +
+            ", againstSteel='" + getAgainstSteel() + "'" +
+            ", againstWater='" + getAgainstWater() + "'" +
+            "}";
+    }
+    
     public String getName() {
         return this.name;
     }
@@ -164,6 +265,18 @@ public class Pokemon {
 
     public void setLegendary(int legendary) {
         this.legendary = legendary > 0;
+    }
+
+    public boolean isOriginal(){
+        return this.custom;
+    }
+
+    public void setCustom(boolean custom){
+        this.custom = custom;
+    }
+
+    public boolean getCustom() {
+        return this.custom;
     }
 
     public String[] getAbilities() {
@@ -350,8 +463,5 @@ public class Pokemon {
         this.againstWater = againstWater;
     }
 
-    @Override
-    public String toString() {
-        return this.pokedexNumber + " " + this.name;
-    }
+    
 }

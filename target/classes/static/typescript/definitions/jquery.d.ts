@@ -35,15 +35,19 @@ declare class jQuery {
     show() :void;
     /** Añade el atributo hidden */
     hide() :void;
+    /** Crea un elemento HTML definido con el argumento de esta función, y lo coloca como hijo del elemento actual */
+    append(element :string) :void;
+    /** Elimina todos los hijos del elemento actual */
+    empty() :void;
 }
 
 declare class jqXHR {
     /** Ejecutar si la petición ha sido respondida correctamente */
-    done(callback :(data :string, status? :string, request? :jqXHR) => void) :jqXHR;
+    done(callback :(data :any, status? :string, request? :jqXHR) => void) :jqXHR;
     /** Ejecutar si ha habido algún problema al ejecutar la petición */
     fail(callback :(request? :jqXHR, status? :string, errorThrown? :string) => void) :jqXHR;
     /** Ejecutar cuando los callbacks de las funciones anteriores se han ejecutado */
-    then(callback :(data? :string, status? :string, request? :jqXHR) => void) :jqXHR;
+    then(callback :(data? :any, status? :string, request? :jqXHR) => void) :jqXHR;
 }
 
 declare type REST = "GET" | "PUT" | "POST" | "DELETE";

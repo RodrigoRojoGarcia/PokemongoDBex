@@ -9,10 +9,11 @@ var State;
     State[State["TYPE_COMPATIBILITY"] = 3] = "TYPE_COMPATIBILITY";
     State[State["FORMS"] = 4] = "FORMS";
 })(State || (State = {}));
-var stateNames = ["Stats", "Breed", "Catch", "Typing", "Forms"];
+var stateNames = ["Stats", "Breed", "Catch", "Types", "Forms"];
 var state = State.STATS;
 var screenQueries;
 var $displayScreen;
+var search;
 $(document).ready(function () {
     screenQueries = [$("#stats"), $("#breeding"), $("#catching"), $("#typeCompatibility"), $("#forms")];
     $displayScreen = $("#displayScreen");
@@ -25,7 +26,8 @@ $(document).ready(function () {
         state = state == 4 ? 0 : (state + 1);
         updateScreensWithState(state);
     });
-    Connection.getCount(function (count) { return console.log(count); });
+    Connection.getByCondition([], function (docs) { return updateGrid(docs); });
+    // Connection.ajaxGet("query").done(docs => updateGrid(docs as any));
 });
 function updateScreensWithState(state) {
     if (!screenQueries || !$displayScreen)
@@ -43,5 +45,21 @@ function updateScreensWithState(state) {
         }
     }
     $displayScreen.text(stateNames[state]);
+}
+function updateGrid(pokemonList) {
+    var $grid = $("#grid");
+    $grid.empty();
+    var _loop_1 = function (pokemon) {
+        Connection.ajaxGet("images/icons/" + pokemon.pokedex_number + ".png")
+            .done(function () {
+            return $grid.append("<div id=\"pkicon" + pokemon.pokedex_number + "\"><img src=\"images/icons/" + pokemon.pokedex_number + ".png\"/></div>");
+        }).fail(function () {
+            return $grid.append("<div id=\"pkicon" + pokemon.pokedex_number + "\"><img src=\"images/icons/susti.png\"/></div>");
+        });
+    };
+    for (var _i = 0, pokemonList_1 = pokemonList; _i < pokemonList_1.length; _i++) {
+        var pokemon = pokemonList_1[_i];
+        _loop_1(pokemon);
+    }
 }
 //# sourceMappingURL=main.js.map

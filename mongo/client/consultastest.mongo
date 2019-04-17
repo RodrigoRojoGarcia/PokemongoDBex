@@ -3,10 +3,18 @@ db.pokemon.createIndex({name: 1});
 
 db.pokemon.dropIndex({name: 1});
 
-db.pokemon.find({name: "Bulbasaur"});
-
-db.pokemon.find({name: "Bulbasaur"}).count();
-
-db.pokemon.find({name: "Bulbasaur"}).explain("executionStats");
-
 db.pokemon.find({$or: [{type1: "fire"}, {type2: "fire"}]});
+
+db.pokemon.find({type1: "fire"}).count();
+
+db.pokemon.find({$or: [{type1: "fire"}, {type2: "fire"}]}).count();
+
+db.pokemon.aggregate(
+    [
+        {$match:{"type1":"fire"}},
+        {$project:{"pokedex_number":1,"is_legendary":1,"_id": 0}},
+        {$group:{$sum:{"type1":true}}}
+    ]);
+
+    
+

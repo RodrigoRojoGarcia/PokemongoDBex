@@ -245,6 +245,7 @@ button:active {
     height: 256px;
     width: 465px;
     float: left;
+    padding: 10px;
     
 }
 

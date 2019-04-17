@@ -6,15 +6,16 @@ enum State {
     STATS, BREEDING, CATCHING, TYPE_COMPATIBILITY, FORMS
 }
 
-var stateNames = ["Stats", "Breed", "Catch", "Typing", "Forms"];
+var stateNames = ["Stats", "Breed", "Catch", "Types", "Forms"];
 
 var state = State.STATS;
 
 var screenQueries :jQuery[] | undefined;
 var $displayScreen :jQuery | undefined;
+var search :MongoQuery[][];
 
 $(document).ready(function() {
-
+    
     screenQueries = [$("#stats"), $("#breeding"), $("#catching"), $("#typeCompatibility"), $("#forms")];
     $displayScreen = $("#displayScreen");
 
@@ -30,13 +31,13 @@ $(document).ready(function() {
         updateScreensWithState(state);
     });
     
-    Connection.getCount(count => console.log(count));
+    Connection.getByCondition([], docs => updateGrid(docs));
+    // Connection.ajaxGet("query").done(docs => updateGrid(docs as any));
 });
 
 function updateScreensWithState(state :State) {
     if(!screenQueries || !$displayScreen)
             return;
-
 
     for(let i = 0; i < screenQueries.length; i++) {
         let prevState = state == 0 ? (screenQueries.length - 1) : (state - 1);
@@ -50,4 +51,17 @@ function updateScreensWithState(state :State) {
     }
 
     $displayScreen.text(stateNames[state]);
+}
+
+function updateGrid(pokemonList :MongoQueryReponse[]){
+    var $grid = $("#grid");
+    $grid.empty();
+    for(let pokemon of pokemonList) {
+        Connection.ajaxGet("images/icons/" + pokemon.pokedex_number + ".png")
+        .done(() => 
+            $grid.append("<div id=\"pkicon" + pokemon.pokedex_number + "\"><img src=\"images/icons/" + pokemon.pokedex_number + ".png\"/></div>")
+        ).fail(() =>
+            $grid.append("<div id=\"pkicon" + pokemon.pokedex_number + "\"><img src=\"images/icons/susti.png\"/></div>")
+        );
+    }
 }

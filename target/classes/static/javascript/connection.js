@@ -5,6 +5,26 @@ var Connection = /** @class */ (function () {
         Connection.ajaxGet("pokemon/count")
             .done(function (count) { return callback(count); });
     };
+    Connection.getByCondition = function (queries, listener) {
+        var ret;
+        if (queries.length == 0) {
+            ret = Connection.ajaxGet("query");
+        }
+        else {
+            ret = Connection.ajaxPost("query", [queries]);
+        }
+        ret.done(function (value) { return listener(value); });
+    };
+    Connection.getByMultipleConditions = function (queries, listener) {
+        var ret;
+        if (queries.length == 0 || queries[0].length == 0) {
+            ret = Connection.ajaxGet("query");
+        }
+        else {
+            ret = Connection.ajaxPost("query", queries);
+        }
+        ret.done(function (value) { return listener(value); });
+    };
     Connection.ajaxGet = function (url) {
         return Connection.StaticJQuery.ajax({
             method: "GET",

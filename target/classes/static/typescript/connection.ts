@@ -1,10 +1,32 @@
 
+type MongoQueryReponse = {pokedex_number :number, is_legendary :number};
+
 class Connection {
 
     public static getCount(callback :(count :string) => void) {
         Connection.ajaxGet("pokemon/count")
         .done(count => callback(count));
-    } 
+    }
+
+    public static getByCondition(queries :MongoQuery[], listener :(value :MongoQueryReponse[]) => void) {
+        var ret :jqXHR;
+        if(queries.length == 0) {
+            ret = Connection.ajaxGet("query");
+        } else {
+            ret = Connection.ajaxPost("query", [queries]);
+        }
+        ret.done(value => listener(value));
+    }
+
+    public static getByMultipleConditions(queries: MongoQuery[][], listener :(docs :MongoQueryReponse[]) => void) {
+        var ret :jqXHR;
+        if(queries.length == 0 || queries[0].length == 0) {
+            ret = Connection.ajaxGet("query")
+        } else {
+            ret = Connection.ajaxPost("query", queries)
+        }
+        ret.done(value => listener(value));
+    }
 
     public static ajaxGet(url :string) {
         return Connection.StaticJQuery.ajax({
