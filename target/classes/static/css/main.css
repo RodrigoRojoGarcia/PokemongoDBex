@@ -6,7 +6,7 @@
 
 body {
     background: rgb(155, 216, 224);
-    color: blue;
+    color: rgb(0, 0, 0);
     font-family: pokemon;
     font-size: 72px;
     user-select: none;
@@ -15,7 +15,7 @@ body {
 }
 
 button {
-    background: green;
+    /*background: green;*/
     font-size: 30px;
     font-family: pokemon;
     padding: 10px;
@@ -26,16 +26,17 @@ button {
 }
 
 button:hover {
-    background: #173017;
+    /*background: #173017;*/
     transform: scale(1.1);
 }
 
 button:active {
-    background: black;
+    /*background: black;*/
     transform: scale(1);
 }
 
 /* Pokédex GO GO */
+
 
 .centered {
     position: fixed;
@@ -58,6 +59,9 @@ button:active {
 .centered::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: white;
+    margin: 0 auto;
+    
+   
 }
 .centered::-webkit-scrollbar-thumb:hover {
     border-radius: 10px;
@@ -65,22 +69,32 @@ button:active {
 }
 
 #upperArea {
-    margin: 10px;
-    padding: 10px;
+    margin: 0 auto;
+    background-image: url("../images/interface/Interfaz_Higher.png");
+    background-size: 905px 550px;
+    width:905px;
+    height: 550px;
+    top:50%;
+    left:50%;
+}
+
+#upperScreen {
+    top:68px;
+    position: relative;
+    margin: 0 auto;
+    text-align: center;
     border-radius: 10px;
-    background: red;
+    background-image: url("../images/interface/Pattern_LineV.png");
+    background-size:60px 60px;
+    padding:10px;   
     width: 700px;
     height: 400px;
 }
 
-
-#upperScreen {
-    position: relative;
-}
-
 #header{
     font-size: 60px;
-    background: rgb(235, 208, 135);
+    background-size: 242px 40px;
+    background-image: url("../images/interface/Button_Green_Name.png");
     border-radius: 3px;
     align-self: right;
     position: absolute;
@@ -97,10 +111,15 @@ button:active {
 
 #imageBackground {
     border-radius: 10px;
-    background: rgb(184, 250, 158);
+    /*background: rgb(184, 250, 158);*/
+    background-image: url("../images/interface/Background_Hills.png");
+    background-size:100% 100%;
     width: 256px;
     height: 380px;
     position: relative;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
     top: 10px;
 }
 
@@ -121,15 +140,179 @@ button:active {
 #stats {
     background: rgb(255, 245, 199);
 }
-
-#breedingNameHeader{
-    font-size: 40px;
-    margin: 0px;
+#abilities{
+    display: flex;
+    flex-wrap: wrap;
+    margin:8px;
+    padding-top:12px;
+    
 }
+#abilities > div {
+    width:180px;
+    font-size: 30px;
+    border-radius: 5px 5px 5px 5px;
+    border-color: black;
+    border-width: 1px;
+    border-style: groove;
+    background-color: rgb(99, 171, 180);
+}
+
+#baseStats{
+    display: flex;
+    flex-wrap: wrap;
+    margin:10px; 
+}
+#baseStats > div{
+    
+    width:80px;
+    font-size:30px;
+}
+.allignR{
+    text-align: right;
+}
+.allignL{
+    text-align: left;
+}
+
+.statHeader {
+    margin-top: 2px;
+    max-width: 150px;
+    padding-right: 5px;
+    border-radius: 5px 0 0 5px;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    background-color: lightcyan;
+    transform: skewX(-10deg)
+}
+
+.statValue {
+    margin-top: 2px;
+    position: relative;
+    top: 5px;
+    padding-left: 5px;
+    border-radius: 0 5px 5px 0;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    background-color: white;
+    transform: skewX(-10deg);
+}
+
+.statRightColumn {
+    margin-left: 10px;
+}
+
+
 
 #breeding {
     background: rgb(131, 130, 127);
 }
+
+#breedingImage {
+    margin: 0 auto;
+    border-radius: 10px;
+    /*background: rgb(184, 250, 158);*/
+    background-image: url("../images/pokemon/egg.png");
+    background-size:100% 100%;
+    width: 150px;
+    height: 149px;
+    position: relative;
+    
+    
+}
+#breedStats {
+    display: flex;
+    flex-wrap: wrap;
+    margin:10px; 
+
+}
+
+#breedStats > div{
+    width:160px;
+    font-size:30px;
+    margin-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    background-color: rgb(0, 255, 255);
+}
+#breedStats > div > p {
+    margin: 0px;
+    position: relative;
+    left: 5px;
+}
+
+#genderDisplay{
+    display: flex;
+    flex-wrap: wrap;
+    margin:10px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 50px;
+}
+
+#male{
+    background-color: rgb(184, 68, 184);
+    width: 50%;
+    display: inline;
+    border-radius: 50px 0 0 50px;   
+}
+
+#female{
+    background-color: orangered;
+    width: 50%;
+    display: inline;
+    border-radius: 0 50px 50px 0px; 
+}
+
+#non-binary{
+    background-color: cyan;
+    width: 0%;
+    display: none;
+    border-radius: 5px;
+}
+
+#male > p {
+    margin: 0px;
+    position: relative;
+    left: 5px;
+    
+}
+
+#female > p{
+    margin: 0px;
+    position: relative;
+    right: 5px;
+    
+}
+
+#non-binary > p {
+    margin: 0px;
+    position: relative;
+    
+}
+
+#genderHandle {
+    background: white;
+    border-style: solid;
+    border-width: 1px;
+    width: 10px;
+    height: 40px;
+    border-radius: 2px;
+    position: absolute;
+    top: 206px;
+    left: 180px;
+    
+}
+
+.percentage{
+    font-size: 30px;  
+}
+
 
 #catchingNameHeader{
     font-size: 40px;
@@ -160,6 +343,8 @@ button:active {
 
 .dataScreen {
     transition: all 0.2s;
+    border-style: solid;
+    border-width: 1px;
     border-radius: 10px;
     width: 380px;
     height: 250px;
@@ -175,13 +360,18 @@ button:active {
 *    BARRA DE CAMBIO DE STATS
 */
 #toolbar {
-    background: rgb(253, 129, 243);
+    /*background: rgb(253, 129, 243);*/
+    background-image: url("../images/interface/Button_Green_StatsBanner.png");
+    background-size:100% 100%;
     position: absolute;
     /*display: inline;   */
     top: 320px;
     left: 286px;
-    width: 360px; 
-    border-radius: 100px;
+    width: 380px; 
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
     text-align: center;  
 }
 
@@ -194,10 +384,15 @@ button:active {
 }
 
 #displayL {
-    border-radius: 100px 0 0 100px;
+    background-color: rgba(1, 1, 1, 0);
+    background-image: url("../images/interface/Button_Green_ButtonOff.png");
+    background-size: 100%;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 50px 0 0 50px;
     position: relative;
     width: 15%;
-    height: 110000%;
+    height: 2em;
     margin: 7px;
     vertical-align: center;
     float: left;
@@ -205,15 +400,24 @@ button:active {
     transition: left 0.2s, transform 0.1s;
 }
 
+#displayL:hover {
+    background-image: url("../images/interface/Button_Green_ButtonHover.png");   
+}
+
 #displayL:active {
-    left: -10px;
+    background-image: url("../images/interface/Button_Green_ButtonOn.png");
+    left: -5px;
 }
 
 #displayR {
-    border-radius: 0 100px 100px 0;
+    background-image: url("../images/interface/Button_Green_ButtonOffFlip.png");
+    background-size: 100%;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0px 50px 50px 0px;
     position: relative;
     width: 15%;
-    height: 100%;
+    height: 2em;
     margin: 7px;
     vertical-align: center;
     float: right;
@@ -221,15 +425,35 @@ button:active {
     transition: left 0.2s, transform 0.1s;
 }
 
+#displayR:hover {
+    background-image: url("../images/interface/Button_Green_ButtonHoverFlip.png");
+    
+}
+
 #displayR:active {
-    left: 10px;
+    background-image: url("../images/interface/Button_Green_ButtonOnFlip.png");
+    left: 5px;
 }
 
 #lowerArea {
-    margin: 10px;    
+    top: -70px;
+    margin: 0 auto;
+    background-image:url("../images/interface/Interface_Lower.png");
+    background-size: 100% 100%;
+    width: 1150px;
+    height:590px;
+    position:relative;
+    z-index: -2;
+}
+
+#lowerScreen{
+    position: relative;
+    margin: 0  auto; 
     padding: 10px;
+    top: 16.5%;
     border-radius: 10px;
-    background: red;
+    background-image: url("../images/interface/Pattern_LineV.png");
+    background-size:60px 60px;
     width: 700px;
     height: 400px;
 }
@@ -237,16 +461,44 @@ button:active {
 /*
  *    CUADRÍCULA
  */
+
+#pokemonSelector{
+     width: 430px;
+     height: 325px;
+     display: flex;
+     flex-wrap: wrap;
+ }
 #grid {
     display: flex;
     flex-wrap: wrap;
     overflow-x: hidden;
     overflow-y: scroll;
-    height: 256px;
-    width: 465px;
+    height: 325px;
+    width: 425px;
     float: left;
     padding: 10px;
+    position: relative;
+    top: 20px;
     
+}
+
+#loading {
+    height: 165px;
+    width: 410px;
+    padding: 10px;
+    position: relative;
+    top: -235px;
+    display: inline;
+    background-color: white;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+}
+#loading > p {
+    margin: 0px;
+    position: relative;
+    top: 45px;
 }
 
 #grid > div {
@@ -255,10 +507,20 @@ button:active {
     margin: 2px;
     padding: 18px;
     font-size: 30px;
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
     border-radius: 3px;
     text-align: center;
     background: rgb(199, 199, 199);
     transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+.gridImage{
+    position: relative;
+    left: -17px;
+    top: -15px;
+    width: 60px;
+    height: 45px;
 }
 
 #grid > div:hover {
@@ -293,4 +555,9 @@ button:active {
 
 #filtersPanel {
     float: right;
+    
+}
+#moreFilters{
+    background-image:url("../images/interface/Button_Green_MoreFilters.png");
+    background-size: 100% 100%;
 }

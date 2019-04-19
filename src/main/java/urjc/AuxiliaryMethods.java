@@ -56,14 +56,14 @@ public class AuxiliaryMethods {
             String filename = image.getName().split("\\.")[0];
             String[] pokemonV = filename.split("-");
             int pokemon = Integer.parseInt(pokemonV[0].split("f")[0]);
-        
-            Set<String> imagesArray = null;
+            
             Object imagesArrayObject = Program.getPokedex().find(new Document("pokedex_number", pokemon)).first().get("images");
-            if(imagesArrayObject != null) {
-               imagesArray = new HashSet<>((List<String>) imagesArrayObject);
-            } else {
-                imagesArray = new HashSet<>();
-            }
+
+            @SuppressWarnings("unchecked")
+            Set<String> imagesArray = imagesArrayObject != null ?
+                new HashSet<>((List<String>) imagesArrayObject) :
+                new HashSet<>();
+
             imagesArray.add(image.getName());
             Program.getPokedex().updateOne(new Document("pokedex_number", pokemon), new Document("$set", new Document("images", imagesArray)));
             System.out.println("Escaneando imagen " + image.getName() + ". Añadiéndolo a " + Program.getPokedex().find(new Document("pokedex_number", pokemon)).first().get("name"));

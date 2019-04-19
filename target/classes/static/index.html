@@ -8,6 +8,9 @@
         <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
         <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 
+        <script src="javascript/state.js"></script>
+        <script src="javascript/screenmanager.js"></script>
+        <script src="javascript/uimanager.js"></script>
         <script src="javascript/pokemonfields.js"></script>
         <script src="javascript/connection.js"></script>
         <script src="javascript/main.js"></script>
@@ -39,21 +42,58 @@
                     <!-- Wrapper de la imagen del pokémon-->
                     <div id = "imageBackground">
                         <!-- Imagen del pokémon seleccionado -->
-                        <img src = "/images/pokemon/12.png" id = "image"/>
+                        <img src="/images/pokemon/susti.png" id = "image"/>
                     </div>
                     
 
                     <!-- Visualización de la pantalla de stats -->
                     <div id = "stats" class = "dataScreen" style = "transform: scale(1)">
-                        <p id = "statsNameHeader">Stats</p>
-                        <p id = "statsText">El Mejor Pokimon Tipo Bicho</p>
-                        
+                        <div id="abilities">
+                            <div id="ability0">Power of Alchemy</div>
+                            <div id="ability1">mmmmmmmmmmmmmmmm</div>
+                            <div id="ability2">mmmmmmmmmmmmmmmm </div>
+                            <div id="ability3">mmmmmmmmmmmmmmmm</div>
+                            <div id="ability4">mmmmmmmmmmmmmmmm</div>
+                            <div id="ability5">mmmmmmmmmmmmmmmm</div>
+                        </div>
+                        <div id="baseStats">
+                            <div id="hp" class="allignR statHeader">HP</div> <div id="HPvalue" class="allignL statValue">256</div>
+                            <div id="spatk" class="allignR statHeader statRightColumn">SP.ATK</div><div id="SpAtkvalue" class="allignL statValue">256</div>
+                            <div id="atk" class="allignR statHeader">ATTACK</div><div id="Atkvalue" class="allignL statValue">256</div>
+                            <div id="spdef" class="allignR statHeader statRightColumn">SP.DEF</div><div id="SpDefvalue" class="allignL statValue">256</div>
+                            <div id="def" class="allignR statHeader">DEFENSE</div><div id="Defvalue" class="allignL statValue">256</div>
+                           <div id="speed" class="allignR statHeader statRightColumn">SPEED</div><div id="Speedvalue" class="allignL statValue">256</div>
+                        </div>
                     </div>
                     
                     <!-- Visualizacion de la pantalla de crianza -->
-                    <div id = "breeding" class = "dataScreen" style = "transform: scale(0)">
-                        <p id = "breedingNameHeader">Breeding</p>
-                        <p id = "breedingText">El breeding</p>
+                    <div id = "breeding" class = "dataScreen" style = "transform: scale(1)">
+                        <div id="breedStats">
+                            <div id = "weight" class="allignL"> 
+                                <p id="weightText">Weight: </p>
+                            </div>
+                            <div id = "height" class="allignL"> 
+                                <p id="heightText">Height: </p> 
+                            </div>
+                        </div>
+                        
+                        <div id = "breedingImage"></div>
+                        <div id="genderDisplay">
+                            <div id = "male" class="allignL percentage">
+                                <p id="maleText">Male: 50%</p>
+                            </div>
+                            <div id = "female" class="allignR percentage">
+                                <p id="femaleText">Female: 50%</p>
+                            </div>
+                            <div id="non-binary" class="percentage">
+                                <p id="non-binaryText">Non-binary</p>
+                            </div>
+                            <div id="genderHandle">
+                                
+                            </div>
+                        </div>
+                        
+                        
                     </div>
 
                     <!-- Visualizacion de la pantalla de captura -->
@@ -77,11 +117,11 @@
                     <!-- Wrapper la visualización -->
                     <div id = "toolbar">
                         <!-- Boton para pasar a la pantalla izq -->
-                        <button type = "button" id = "displayL">🡄</button>
+                        <button type = "button" id = "displayL"></button>
                         <!-- Pantalla de estadísticas que vislumbras -->
                         <p id = "displayScreen"> Stats </p>
                         <!-- Boton para pasar a la pantalla dcha -->
-                        <button type = "button" id = "displayR">🡆</button>                        
+                        <button type = "button" id = "displayR"></button>                        
                     </div>
 
                 </div>
@@ -98,6 +138,10 @@
                         <!-- Cuadricula con los pokemon -->
                         <div id = "grid" class = "inline">
 
+                        </div>
+
+                        <div id="loading">
+                            <p>Cargando</p>
                         </div>
 
                     </div>

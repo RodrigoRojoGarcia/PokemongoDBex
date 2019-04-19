@@ -3,9 +3,10 @@ type MongoQueryReponse = {pokedex_number :number, is_legendary :number};
 
 class Connection {
 
-    public static getCount(callback :(count :string) => void) {
+    public static getCount(callback :(count :number) => void) {
         Connection.ajaxGet("pokemon/count")
-        .done(count => callback(count));
+        .done(count => callback(count))
+        .fail(() => console.error("No se ha podido acceder al servidor para obtener el número de Pokémon."));
     }
 
     public static getByCondition(queries :MongoQuery[], listener :(value :MongoQueryReponse[]) => void) {
@@ -15,7 +16,8 @@ class Connection {
         } else {
             ret = Connection.ajaxPost("query", [queries]);
         }
-        ret.done(value => listener(value));
+        ret.done(value => listener(value))
+        .fail(() => console.error("No se ha podido acceder al servidor para realizar la consulta."));
     }
 
     public static getByMultipleConditions(queries: MongoQuery[][], listener :(docs :MongoQueryReponse[]) => void) {
@@ -25,7 +27,14 @@ class Connection {
         } else {
             ret = Connection.ajaxPost("query", queries)
         }
-        ret.done(value => listener(value));
+        ret.done(value => listener(value))
+        .fail(() => console.error("No se ha podido acceder al servidor para realizar la consulta."));
+    }
+
+    public static getPokemon(id :number, listener :(pokemon :Pokemon) => void) {
+        Connection.ajaxGet("query/" + id)
+        .done(pokemon => listener(pokemon))
+        .fail(() => console.error("No se ha podido acceder al servidor para obtener al Pokémon " + id));
     }
 
     public static ajaxGet(url :string) {

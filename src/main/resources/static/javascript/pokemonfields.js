@@ -40,5 +40,8 @@ var PokemonFields;
     PokemonFields["weight"] = "weight_kg";
     PokemonFields["generation"] = "generation";
     PokemonFields["is_legendary"] = "is_legendary";
+    PokemonFields["custom"] = "custom";
+    PokemonFields["pseudolegendary"] = "pseudolegendary";
+    PokemonFields["images"] = "images";
 })(PokemonFields || (PokemonFields = {}));
 //# sourceMappingURL=pokemonfields.js.map

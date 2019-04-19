@@ -1,11 +1,10 @@
-var Connection = /** @class */ (function () {
-    function Connection() {
-    }
-    Connection.getCount = function (callback) {
+class Connection {
+    static getCount(callback) {
         Connection.ajaxGet("pokemon/count")
-            .done(function (count) { return callback(count); });
-    };
-    Connection.getByCondition = function (queries, listener) {
+            .done(count => callback(count))
+            .fail(() => console.error("No se ha podido acceder al servidor para obtener el número de Pokémon."));
+    }
+    static getByCondition(queries, listener) {
         var ret;
         if (queries.length == 0) {
             ret = Connection.ajaxGet("query");
@@ -13,9 +12,10 @@ var Connection = /** @class */ (function () {
         else {
             ret = Connection.ajaxPost("query", [queries]);
         }
-        ret.done(function (value) { return listener(value); });
-    };
-    Connection.getByMultipleConditions = function (queries, listener) {
+        ret.done(value => listener(value))
+            .fail(() => console.error("No se ha podido acceder al servidor para realizar la consulta."));
+    }
+    static getByMultipleConditions(queries, listener) {
         var ret;
         if (queries.length == 0 || queries[0].length == 0) {
             ret = Connection.ajaxGet("query");
@@ -23,15 +23,21 @@ var Connection = /** @class */ (function () {
         else {
             ret = Connection.ajaxPost("query", queries);
         }
-        ret.done(function (value) { return listener(value); });
-    };
-    Connection.ajaxGet = function (url) {
+        ret.done(value => listener(value))
+            .fail(() => console.error("No se ha podido acceder al servidor para realizar la consulta."));
+    }
+    static getPokemon(id, listener) {
+        Connection.ajaxGet("query/" + id)
+            .done(pokemon => listener(pokemon))
+            .fail(() => console.error("No se ha podido acceder al servidor para obtener al Pokémon " + id));
+    }
+    static ajaxGet(url) {
         return Connection.StaticJQuery.ajax({
             method: "GET",
             url: "http://" + location.host + "/" + url
         });
-    };
-    Connection.ajaxPost = function (url, data) {
+    }
+    static ajaxPost(url, data) {
         var send;
         var contentType;
         if (typeof (data) != "string") {
@@ -51,16 +57,12 @@ var Connection = /** @class */ (function () {
                 "Content-Type": contentType
             }
         });
-    };
-    Connection.StaticJQuery = /** @class */ (function () {
-        function class_1() {
-        }
-        class_1.ajax = function (query) {
-            return $.ajax(query);
-        };
-        ;
-        return class_1;
-    }());
-    return Connection;
-}());
+    }
+}
+Connection.StaticJQuery = class {
+    static ajax(query) {
+        return $.ajax(query);
+    }
+    ;
+};
 //# sourceMappingURL=connection.js.map

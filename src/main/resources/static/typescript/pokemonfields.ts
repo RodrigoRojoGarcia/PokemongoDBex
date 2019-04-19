@@ -1,4 +1,3 @@
-
 enum PokemonFields {
     abilities           = "abilities",
     against_bug         = "against_bug",
@@ -39,5 +38,8 @@ enum PokemonFields {
     type2               = "type2",
     weight              = "weight_kg",
     generation          = "generation",
-    is_legendary        = "is_legendary"
+    is_legendary        = "is_legendary",
+    custom              = "custom",
+    pseudolegendary     = "pseudolegendary",
+    images              = "images"
 }

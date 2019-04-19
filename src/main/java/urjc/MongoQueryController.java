@@ -20,12 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/query")
 public class MongoQueryController {
 
+    public static int nextId = -1;
+
     @GetMapping
     public Collection<Document> getAll() {
         List<Document> ret;
         ret = Program.getPokedex().find().projection(
             Projections.fields(Projections.include("pokedex_number","is_legendary"), Projections.exclude("_id"))).into(new ArrayList<Document>());
-        ret.sort((d1, d2) -> ((Integer) d1.get("pokedex_number")) - ((Integer) d2.get("pokedex_number")));
         return ret;
     }
 
@@ -48,13 +49,20 @@ public class MongoQueryController {
         return ret;
     }
     
-    @GetMapping("/pokemon/{id}")
+    @GetMapping("/{id}")
     public Document getPokemonById(@PathVariable int id){
         return Program.getPokedex().find(new Document("pokedex_number", id)).first();
     }
     
-    @PostMapping("/pokemon")
+    @PostMapping("/new")
     public ResponseEntity<Pokemon> createNewPokemon(@RequestBody Pokemon pokemon){
+        if(nextId == -1) {
+            nextId = (int) Program.getPokedex().countDocuments() + 1;
+        } else {
+            nextId++;
+        }
+        pokemon.setPokedexNumber(nextId);
+        Program.getPokedex().insertOne(pokemon.toDocument());
         return null;
     }
 

@@ -1,12 +1,17 @@
 package urjc;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.bson.Document;
+
 public class Pokemon {
 
     private String name, japaneseName, classification, type1, type2;
     private int hp, attack, defense, sp_attack, sp_defense, speed, baseTotal;
     private int weight, height, percentageMale;
     private int generation, pokedexNumber;
-    private boolean legendary, custom;
+    private boolean legendary, custom, pseudolegendary;
     private String[] abilities;
 
     private int eggSteps, happiness, captureRate, experience;
@@ -20,7 +25,7 @@ public class Pokemon {
                     int hp, int attack, int defense, int sp_attack, int sp_defense, int speed, int baseTotal, 
                     int weight, int height, int percentageMale, 
                     int generation, 
-                    boolean legendary, boolean custom, 
+                    boolean legendary, boolean custom, boolean pseudolegendary,
                     String[] abilities, 
                     int eggSteps, int happiness, int captureRate, int experience, 
                     int againstBug, int againstDark, int againstDragon, int againstElectric, int againstFairy, int againstFight, int againstFire, int againstFlying, int againstGhost, int againstGrass, int againstGround, int againstIce, int againstNormal, int againstPoison, int againstPsychic, int againstRock, int againstSteel, int againstWater) {
@@ -42,6 +47,7 @@ public class Pokemon {
         this.generation = generation;
         this.legendary = legendary;
         this.custom = custom;
+        this.pseudolegendary = pseudolegendary;
         this.abilities = abilities;
         this.eggSteps = eggSteps;
         this.happiness = happiness;
@@ -65,54 +71,6 @@ public class Pokemon {
         this.againstRock = againstRock;
         this.againstSteel = againstSteel;
         this.againstWater = againstWater;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-            " name='" + getName() + "'" +
-            ", japaneseName='" + getJapaneseName() + "'" +
-            ", classification='" + getClassification() + "'" +
-            ", type1='" + getType1() + "'" +
-            ", type2='" + getType2() + "'" +
-            ", hp='" + getHp() + "'" +
-            ", attack='" + getAttack() + "'" +
-            ", defense='" + getDefense() + "'" +
-            ", sp_attack='" + getSp_attack() + "'" +
-            ", sp_defense='" + getSp_defense() + "'" +
-            ", speed='" + getSpeed() + "'" +
-            ", baseTotal='" + getBaseTotal() + "'" +
-            ", weight='" + getWeight() + "'" +
-            ", height='" + getHeight() + "'" +
-            ", percentageMale='" + getPercentageMale() + "'" +
-            ", generation='" + getGeneration() + "'" +
-            ", pokedexNumber='" + getPokedexNumber() + "'" +
-            ", legendary='" + getLegendary() + "'" +
-            ", original='" + isOriginal() + "'" +
-            ", abilities='" + getAbilities() + "'" +
-            ", eggSteps='" + getEggSteps() + "'" +
-            ", happiness='" + getHappiness() + "'" +
-            ", captureRate='" + getCaptureRate() + "'" +
-            ", experience='" + getExperience() + "'" +
-            ", againstBug='" + getAgainstBug() + "'" +
-            ", againstDark='" + getAgainstDark() + "'" +
-            ", againstDragon='" + getAgainstDragon() + "'" +
-            ", againstElectric='" + getAgainstElectric() + "'" +
-            ", againstFairy='" + getAgainstFairy() + "'" +
-            ", againstFight='" + getAgainstFight() + "'" +
-            ", againstFire='" + getAgainstFire() + "'" +
-            ", againstFlying='" + getAgainstFlying() + "'" +
-            ", againstGhost='" + getAgainstGhost() + "'" +
-            ", againstGrass='" + getAgainstGrass() + "'" +
-            ", againstGround='" + getAgainstGround() + "'" +
-            ", againstIce='" + getAgainstIce() + "'" +
-            ", againstNormal='" + getAgainstNormal() + "'" +
-            ", againstPoison='" + getAgainstPoison() + "'" +
-            ", againstPsychic='" + getAgainstPsychic() + "'" +
-            ", againstRock='" + getAgainstRock() + "'" +
-            ", againstSteel='" + getAgainstSteel() + "'" +
-            ", againstWater='" + getAgainstWater() + "'" +
-            "}";
     }
     
     public String getName() {
@@ -267,7 +225,7 @@ public class Pokemon {
         this.legendary = legendary > 0;
     }
 
-    public boolean isOriginal(){
+    public boolean isCustom(){
         return this.custom;
     }
 
@@ -275,8 +233,11 @@ public class Pokemon {
         this.custom = custom;
     }
 
-    public boolean getCustom() {
-        return this.custom;
+    public boolean isPseudolegendary(){
+        return this.pseudolegendary;
+    }
+    public void setPseudolegendary(boolean pseudolegendary){
+        this.pseudolegendary = pseudolegendary;
     }
 
     public String[] getAbilities() {
@@ -463,5 +424,97 @@ public class Pokemon {
         this.againstWater = againstWater;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+            " name='" + getName() + "'" +
+            ", japaneseName='" + getJapaneseName() + "'" +
+            ", classification='" + getClassification() + "'" +
+            ", type1='" + getType1() + "'" +
+            ", type2='" + getType2() + "'" +
+            ", hp='" + getHp() + "'" +
+            ", attack='" + getAttack() + "'" +
+            ", defense='" + getDefense() + "'" +
+            ", sp_attack='" + getSp_attack() + "'" +
+            ", sp_defense='" + getSp_defense() + "'" +
+            ", speed='" + getSpeed() + "'" +
+            ", baseTotal='" + getBaseTotal() + "'" +
+            ", weight='" + getWeight() + "'" +
+            ", height='" + getHeight() + "'" +
+            ", percentageMale='" + getPercentageMale() + "'" +
+            ", generation='" + getGeneration() + "'" +
+            ", pokedexNumber='" + getPokedexNumber() + "'" +
+            ", legendary='" + getLegendary() + "'" +
+            ", custom='" + isCustom() + "'" +
+            ", pseudolegendary='" + isPseudolegendary() + "'" +
+            ", abilities='" + getAbilities() + "'" +
+            ", eggSteps='" + getEggSteps() + "'" +
+            ", happiness='" + getHappiness() + "'" +
+            ", captureRate='" + getCaptureRate() + "'" +
+            ", experience='" + getExperience() + "'" +
+            ", againstBug='" + getAgainstBug() + "'" +
+            ", againstDark='" + getAgainstDark() + "'" +
+            ", againstDragon='" + getAgainstDragon() + "'" +
+            ", againstElectric='" + getAgainstElectric() + "'" +
+            ", againstFairy='" + getAgainstFairy() + "'" +
+            ", againstFight='" + getAgainstFight() + "'" +
+            ", againstFire='" + getAgainstFire() + "'" +
+            ", againstFlying='" + getAgainstFlying() + "'" +
+            ", againstGhost='" + getAgainstGhost() + "'" +
+            ", againstGrass='" + getAgainstGrass() + "'" +
+            ", againstGround='" + getAgainstGround() + "'" +
+            ", againstIce='" + getAgainstIce() + "'" +
+            ", againstNormal='" + getAgainstNormal() + "'" +
+            ", againstPoison='" + getAgainstPoison() + "'" +
+            ", againstPsychic='" + getAgainstPsychic() + "'" +
+            ", againstRock='" + getAgainstRock() + "'" +
+            ", againstSteel='" + getAgainstSteel() + "'" +
+            ", againstWater='" + getAgainstWater() + "'" +
+            "}";
+    }
     
+    public Document toDocument() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("" + PokemonFields.name, this.name);
+        map.put("" + PokemonFields.japanese_name, this.japaneseName);
+        map.put("" + PokemonFields.abilities, this.abilities);
+        map.put("" + PokemonFields.against_bug, this.againstBug);
+        map.put("" + PokemonFields.against_dark, this.againstDark);
+        map.put("" + PokemonFields.against_dragon, this.againstDragon);
+        map.put("" + PokemonFields.against_electric, this.againstElectric);
+        map.put("" + PokemonFields.against_fairy, this.againstFairy);
+        map.put("" + PokemonFields.against_fight, this.againstFight);
+        map.put("" + PokemonFields.against_fire, this.againstFire);
+        map.put("" + PokemonFields.against_flying, this.againstFlying);
+        map.put("" + PokemonFields.against_ghost, this.againstGhost);
+        map.put("" + PokemonFields.against_grass, this.againstGrass);
+        map.put("" + PokemonFields.against_ground, this.againstGround);
+        map.put("" + PokemonFields.against_ice, this.againstIce);
+        map.put("" + PokemonFields.against_normal, this.againstNormal);
+        map.put("" + PokemonFields.against_poison, this.againstPoison);
+        map.put("" + PokemonFields.against_psychic, this.againstPsychic);
+        map.put("" + PokemonFields.against_rock, this.againstRock);
+        map.put("" + PokemonFields.against_steel, this.againstSteel);
+        map.put("" + PokemonFields.against_water, this.againstWater);
+        map.put("" + PokemonFields.base_egg_steps, this.eggSteps);
+        map.put("" + PokemonFields.base_happiness, this.happiness);
+        map.put("" + PokemonFields.base_total, this.baseTotal);
+        map.put("" + PokemonFields.capture_rate, this.captureRate);
+        map.put("" + PokemonFields.classification, this.classification);
+        map.put("" + PokemonFields.defense, this.defense);
+        map.put("" + PokemonFields.xp_growth, this.experience);
+        map.put("" + PokemonFields.height, this.height);
+        map.put("" + PokemonFields.hp, this.hp);
+        map.put("" + PokemonFields.percentage_male, this.percentageMale);
+        map.put("" + PokemonFields.pokedex_number, this.pokedexNumber);
+        map.put("" + PokemonFields.sp_attack, this.sp_attack);
+        map.put("" + PokemonFields.sp_defense, this.sp_defense);
+        map.put("" + PokemonFields.speed, this.speed);
+        map.put("" + PokemonFields.type1, this.type1);
+        map.put("" + PokemonFields.type2, this.type2);
+        map.put("" + PokemonFields.weight, this.weight);
+        map.put("" + PokemonFields.generation, this.generation);
+        map.put("" + PokemonFields.is_legendary, this.legendary);
+        return new Document(map);
+    }
 }
