@@ -16,7 +16,7 @@ declare class jQuery {
     /** Devuelve o modifica el contenido interpretándolo como HTML */
     html(content? :string) :string;
     /** Modifica un par clave-valor del atributo style */
-    css(key :string, value :string) :void;
+    css(key :string, value :number | string) :void;
     /** Devuelve o modifica el valor de un elemento de formulario */
     val(content? :string | number | boolean) :string | number | boolean;
     /** Devuelve o modifica el valor del atributo especificado */
@@ -39,6 +39,9 @@ declare class jQuery {
     append(element :string) :void;
     /** Elimina todos los hijos del elemento actual */
     empty() :void;
+    /** Cambiar la anchura del elemento */
+    width(value :string) :void;
+
 }
 
 declare class jqXHR {

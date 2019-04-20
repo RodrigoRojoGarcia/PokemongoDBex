@@ -55,18 +55,27 @@ public class AuxiliaryMethods {
         for(File image : listOfImages) {
             String filename = image.getName().split("\\.")[0];
             String[] pokemonV = filename.split("-");
-            int pokemon = Integer.parseInt(pokemonV[0].split("f")[0]);
+            try {
+                int pokemon = Integer.parseInt(pokemonV[0].split("f")[0]);
             
-            Object imagesArrayObject = Program.getPokedex().find(new Document("pokedex_number", pokemon)).first().get("images");
-
-            @SuppressWarnings("unchecked")
-            Set<String> imagesArray = imagesArrayObject != null ?
-                new HashSet<>((List<String>) imagesArrayObject) :
-                new HashSet<>();
-
-            imagesArray.add(image.getName());
-            Program.getPokedex().updateOne(new Document("pokedex_number", pokemon), new Document("$set", new Document("images", imagesArray)));
-            System.out.println("Escaneando imagen " + image.getName() + ". Añadiéndolo a " + Program.getPokedex().find(new Document("pokedex_number", pokemon)).first().get("name"));
+                Object imagesArrayObject = Program.getPokedex().find(new Document("pokedex_number", pokemon)).first().get("images");
+                
+                @SuppressWarnings("unchecked")
+                Set<String> imagesArray = imagesArrayObject != null ?
+                    new HashSet<>((List<String>) imagesArrayObject) :
+                    new HashSet<>();
+                
+                imagesArray.add(image.getName());
+                Program.getPokedex().updateOne(new Document("pokedex_number", pokemon), new Document("$set", new Document("images", imagesArray)));
+                System.out.println("Escaneando imagen " + image.getName() + ". Añadiéndolo a " + Program.getPokedex().find(new Document("pokedex_number", pokemon)).first().get("name"));
+            } catch(NumberFormatException e) {
+                System.out.println("No hay ningún Pokémon en la base de datos cuyo número sea \"" + pokemonV[0].split("f")[0] + "\"");
+            }
+            
         }
+    }
+
+    public static void setNonBinaryGender() {
+        Program.getPokedex().updateMany(new Document("" + PokemonFields.percentage_male, ""), new Document("$set", new Document("" + PokemonFields.percentage_male, -1)));
     }
 }

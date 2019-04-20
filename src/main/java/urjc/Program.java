@@ -24,6 +24,7 @@ public class Program
 
         // crear xml prueba
         // xml();
+        AuxiliaryMethods.setNonBinaryGender();
     }
 
     public static MongoCollection<Document> getPokedex() {

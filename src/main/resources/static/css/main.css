@@ -4,6 +4,15 @@
     src: url('../PokemonDPPt.ttf')
 }
 
+@keyframes loadingSpinAnim {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg)
+    }
+}
+
 body {
     background: rgb(155, 216, 224);
     color: rgb(0, 0, 0);
@@ -90,16 +99,23 @@ button:active {
     width: 700px;
     height: 400px;
 }
-
+#pokemonNameAndType{
+    display:flex;
+    flex-wrap:wrap;
+    position: absolute;
+    left:286px;
+}
 #header{
     font-size: 60px;
     background-size: 242px 40px;
+    margin: 0px;
+    width: 200px;
+    height: 40px;
     background-image: url("../images/interface/Button_Green_Name.png");
     border-radius: 3px;
     align-self: right;
     position: absolute;
-    left: 286px;
-    top: 10px;
+    left:286;
     display: inline;
     padding: 0 20px 0 20px;
 }
@@ -107,6 +123,37 @@ button:active {
 #pokemonNameHeader {
     font-size: 40px;
     margin: 0px;
+    width:240px;
+    position: relative;
+    left: -15px;
+    
+}
+
+#pokemonTypeHeader{
+    position: relative;
+    top: 5px;
+    left: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 200px;
+    
+}
+#type1{
+    background-size: 70px 30px;
+    width: 70px;
+    height: 30px;
+    transition: background-image 0.1s linear;
+    background-image: url("../images/types/none.png");
+}
+
+#type2{
+    background-size: 70px 30px;
+    width: 70px;
+    height: 30px;
+    position: relative;
+    left: 5px;
+    transition: background-image 0.1s linear;
+    background-image: url("../images/types/none.png");
 }
 
 #imageBackground {
@@ -145,10 +192,12 @@ button:active {
     flex-wrap: wrap;
     margin:8px;
     padding-top:12px;
+    height: 100px;
     
 }
 #abilities > div {
     width:180px;
+    height:30px;
     font-size: 30px;
     border-radius: 5px 5px 5px 5px;
     border-color: black;
@@ -218,9 +267,24 @@ button:active {
     width: 150px;
     height: 149px;
     position: relative;
-    
-    
 }
+
+#maleSign {
+    font-size: 35px;
+    display: inline;
+    position: absolute;
+    top: 170px;
+    left: 14px;
+}
+
+#femaleSign {
+    font-size: 35px;
+    display: inline;
+    position: absolute;
+    top: 170px;
+    right: 10px;
+}
+
 #breedStats {
     display: flex;
     flex-wrap: wrap;
@@ -229,8 +293,7 @@ button:active {
 }
 
 #breedStats > div{
-    width:160px;
-    font-size:30px;
+    font-size:28px;
     margin-left: 5px;
     padding-right: 5px;
     border-radius: 5px;
@@ -239,10 +302,18 @@ button:active {
     border-style: solid;
     background-color: rgb(0, 255, 255);
 }
+#base-steps{
+    width: 180px;
+}
+#classification{
+    width: 140px;
+    
+}
 #breedStats > div > p {
     margin: 0px;
     position: relative;
     left: 5px;
+    right: 5px;
 }
 
 #genderDisplay{
@@ -258,22 +329,22 @@ button:active {
 #male{
     background-color: rgb(184, 68, 184);
     width: 50%;
-    display: inline;
+    display: none;
     border-radius: 50px 0 0 50px;   
 }
 
 #female{
     background-color: orangered;
     width: 50%;
-    display: inline;
+    display: none;
     border-radius: 0 50px 50px 0px; 
 }
 
 #non-binary{
-    background-color: cyan;
-    width: 0%;
-    display: none;
-    border-radius: 5px;
+    background-color: silver;
+    width: 100%;
+    display: inline;
+    border-radius: 50px;
 }
 
 #male > p {
@@ -306,6 +377,7 @@ button:active {
     position: absolute;
     top: 206px;
     left: 180px;
+    display: none;
     
 }
 
@@ -314,23 +386,107 @@ button:active {
 }
 
 
-#catchingNameHeader{
-    font-size: 40px;
+#catchingStats{
+    /*display: ruby;*/
+    font-size: 60px;
+    margin-top: 10px;
+}
+
+#catchingStats > div{
+   
+    width: 340px;
+    height: 40px;
+    font-size:30px;
+   
+    
+    margin: 5px 0px 0px 10px;
+    float: top;
+    border-radius: 5px;
+    border-color: black;
+    border-width: 0px;
+    border-style: solid;
+    background-color: rgb(168, 174, 255);
+    transform: skewX(-10deg);
+    
+}
+
+#catchingStats > div > p {
     margin: 0px;
+    position: relative;
+    left: 5px;
+    top: 5px;
+    font-weight: bold;
 }
 
 #catching {
     background: rgb(225, 199, 255);
 }
 
-#typeCompatibilityNameHeader{
-    font-size: 40px;
+
+
+
+#typeCompatibilitySlider{
+    background-color: rgb(130, 255, 182); 
+    margin: 0 auto;
+    width: 300px;
+    top: 10px;
+    font-size:30px;
+    position:absolute;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+#typeCompatibilitySlider > button {
+    background-color: rgb(255, 130, 130); 
+    margin: 0 auto;
+    display: flex;
+    background-size: 100%;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 100%;
+    position: relative;
+    width: 45px;
+    height: 45px;
+    margin: 12px;
+    font-size: 35px;
+    transition: left 0.2s, transform 0.1s;
+}
+
+#typeCompatibilitySlider > button > p {
     margin: 0px;
+    position: relative;
+    top:-11px;
+    left:-4px;
+    
+}
+
+
+/*typeLeft, typeRight*/
+
+#typeLeft {
+    float: left;
+}
+
+#typeRight {
+    float: right;
+    top: -72px;
+}
+
+#typeCompatibilitySlider > button:hover{
+    background-color: rgb(255, 130, 130); 
+}
+
+#typeCompatibilityButtons > button:active {
+    background-color: rgb(255, 130, 130); 
+    left: -5px;
 }
 
 #typeCompatibility {
     background: rgb(199, 255, 216);
 }
+
+
 
 #formsNameHeader{
     font-size: 40px;
@@ -495,10 +651,39 @@ button:active {
     border-width: 1px;
     text-align: center;
 }
-#loading > p {
+
+.loadingShown {
+    transform: scale(1);
+    opacity: 1;
+    transition: opacity 0.1s linear, transform 0.1s linear;
+}
+
+.loadingHidden {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: opacity 0.1s linear, transform 0.1s linear;
+}
+
+#loading > div {
     margin: 0px;
     position: relative;
     top: 45px;
+    left: 20px;
+}
+
+#loading > div > p {
+    display: inline;
+}
+
+#loadingSpin {
+    width: 40px;
+    height: 40px;
+    background-image: url("../images/interface/Interface_Loading.png");
+    background-size: 40px 40px;
+    animation: loadingSpinAnim 1s linear infinite;
+    position: relative;
+    top: -55px;
+    left: 40px;
 }
 
 #grid > div {
@@ -518,20 +703,26 @@ button:active {
 .gridImage{
     position: relative;
     left: -17px;
-    top: -15px;
+    top: -67px;
     width: 60px;
     height: 45px;
 }
 
 #grid > div:hover {
     background: rgb(158, 158, 158);
-    transform: translate(0, -10px);
+    transform: scale(1.1);
 }
 
 #grid > div:active {
     background: rgb(0, 0, 0);
     color: white;
-    transform: translateY(-5px);
+    transform: scale(1);
+}
+
+#grid > div > p {
+    font-size: 20px;
+    position: relative;
+    top: -40px;
 }
 
 #grid::-webkit-scrollbar {

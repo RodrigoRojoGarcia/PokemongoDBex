@@ -23,7 +23,10 @@ class ScreenManager {
         for (let pokemon of pokemonList) {
             let onclick = "onclick=\"ScreenManager.setPokemon(" + pokemon.pokedex_number + ")\"";
             Connection.ajaxGet("images/icons/" + pokemon.pokedex_number + ".png")
-                .done(() => divMap.set(pokemon.pokedex_number, "<div id=\"pkicon" + pokemon.pokedex_number + "\" " + onclick + "><img src=\"images/icons/" + pokemon.pokedex_number + ".png\" class=\"gridImage\"/></div>")).fail(() => divMap.set(pokemon.pokedex_number, "<div id=\"pkicon" + pokemon.pokedex_number + "\" " + onclick + "><img src=\"images/icons/susti.png\"/></div>")).then(() => {
+                .done(() => divMap.set(pokemon.pokedex_number, "<div id=\"pkicon" + pokemon.pokedex_number + "\" " + onclick + ">" +
+                "<p>" + ScreenManager.padWithZeroes(pokemon.pokedex_number, 3) + "</p>" +
+                "<img src=\"images/icons/" + pokemon.pokedex_number + ".png\" class=\"gridImage\"/>" +
+                "</div>")).fail(() => divMap.set(pokemon.pokedex_number, "<div id=\"pkicon" + pokemon.pokedex_number + "\" " + onclick + "><img src=\"images/icons/susti.png\"/></div>")).then(() => {
                 if (divMap.size == pokemonList.length)
                     ScreenManager.updateGridAux($grid, divMap);
             });
@@ -39,19 +42,37 @@ class ScreenManager {
         for (let key of keySet) {
             $grid.append(divMap.get(key));
         }
-        if (ScreenManager.$loading)
-            ScreenManager.$loading.hide();
+        ScreenManager.showLoading(false);
     }
     static doQueries() {
         ScreenManager.screenQueries = [$("#stats"), $("#breeding"), $("#catching"), $("#typeCompatibility"), $("#forms")];
         ScreenManager.$displayScreen = $("#displayScreen");
         ScreenManager.$image = $("#image");
         ScreenManager.$loading = $("#loading");
+        ScreenManager.$pokemonName = $("#pokemonNameHeader");
+        ScreenManager.$type1 = $("#type1");
+        ScreenManager.$type2 = $("#type2");
+        ScreenManager.$abilities = $("#abilities");
+        ScreenManager.baseStatsQueries = [$("#HPvalue"), $("#Atkvalue"), $("#Defvalue"), $("#SpAtkvalue"), $("#SpDefvalue"), $("#Speedvalue")];
+        ScreenManager.$baseSteps = $("#base-stepsText");
+        ScreenManager.$male = $("#male");
+        ScreenManager.$maleText = $("#maleText");
+        ScreenManager.$female = $("#female");
+        ScreenManager.$femaleText = $("#femaleText");
+        ScreenManager.$nb = $("#non-binary");
+        ScreenManager.$genderHandle = $("#genderHandle");
+        ScreenManager.$height = $("#heightText");
+        ScreenManager.$weight = $("#weightText");
+        ScreenManager.$xpGrowth = $("#xpGrowthText");
+        ScreenManager.$happiness = $("#happinessText");
+        ScreenManager.$captureRate = $("#captureRateText");
+        ScreenManager.$classification = $("#classificationText");
     }
     static setPokemon(id, listener) {
         var that = this;
         Connection.getPokemon(id, pokemon => {
             that.pokemon = pokemon;
+            ScreenManager.showPokemonInfo();
             var selected = "susti.png";
             if (pokemon.images.length > 0) {
                 let baseImage = pokemon.pokedex_number + ".png";
@@ -75,6 +96,153 @@ class ScreenManager {
     }
     static getPokemon() {
         return this.pokemon;
+    }
+    static showPokemonInfo() {
+        if (this.pokemon) {
+            if (this.$pokemonName)
+                this.$pokemonName.text("#" + ScreenManager.padWithZeroes(this.pokemon.pokedex_number, 3) + " " + this.pokemon.name);
+            if (this.$type1 && this.pokemon.type1 != "")
+                this.$type1.css("background-image", "url('../images/types/" + this.pokemon.type1 + ".png')");
+            if (this.$type2)
+                if (this.pokemon.type2 == "") {
+                    this.$type2.css("background-image", "url('../images/types/none.png'");
+                }
+                else {
+                    this.$type2.css("background-image", "url('../images/types/" + this.pokemon.type2 + ".png')");
+                }
+        }
+        ScreenManager.prepareStatsScreen();
+        ScreenManager.prepareBreedScreen();
+        ScreenManager.prepareCatchScreen();
+    }
+    static padWithZeroes(num, minFigures) {
+        var cur = num;
+        var ret = num.toString();
+        var figures = 0;
+        while (figures < minFigures) {
+            if (cur == 0) {
+                ret = "0" + ret.toString();
+            }
+            figures++;
+            cur = Math.floor(cur * 0.1);
+        }
+        return ret;
+    }
+    static onlyTwoDecimals(num) {
+        return parseFloat((Math.round(num * 100) / 100).toFixed(2));
+    }
+    static showLoading(show) {
+        if (ScreenManager.$loading) {
+            ScreenManager.$loading.removeClass(show ? "loadingHidden" : "loadingShown");
+            ScreenManager.$loading.addClass(show ? "loadingShown" : "loadingHidden");
+            setTimeout(function () {
+                if (ScreenManager.$loading) {
+                    show ? ScreenManager.$loading.show() : ScreenManager.$loading.hide();
+                }
+            }, 200);
+        }
+    }
+    static prepareStatsScreen() {
+        if (!this.pokemon)
+            return;
+        if (this.$abilities) {
+            this.$abilities.empty();
+            for (let i = 0; i < this.pokemon.abilities.length; i++) {
+                this.$abilities.append("<div id=\"abilities" + i + "\">" + this.pokemon.abilities[i] + "</div>");
+            }
+        }
+        var baseStats = [
+            this.pokemon.hp, this.pokemon.attack, this.pokemon.defense,
+            this.pokemon.sp_attack, this.pokemon.sp_defense, this.pokemon.speed
+        ];
+        for (let i = 0; i < baseStats.length; i++) {
+            if (this.baseStatsQueries)
+                this.baseStatsQueries[i].text("" + baseStats[i]);
+        }
+    }
+    static prepareBreedScreen() {
+        if (!this.pokemon)
+            return;
+        if (this.$baseSteps)
+            this.$baseSteps.text("Base Steps: " + this.pokemon.base_egg_steps);
+        if (this.$classification)
+            this.$classification.text(this.pokemon.classfication.split("Pokémon")[0]);
+        if (this.$male && this.$maleText && this.$female && this.$femaleText && this.$nb) {
+            if (this.pokemon.percentage_male != -1) {
+                this.$nb.hide();
+                this.$female.show();
+                this.$male.show();
+                this.$male.css("border-radius", "50px 0 0 50px");
+                this.$female.css("border-radius", " 0 50px 50px 0px");
+                var malePercentage = this.pokemon.percentage_male + "%";
+                this.$male.width(malePercentage);
+                var femalePercentage = ScreenManager.onlyTwoDecimals(100 - this.pokemon.percentage_male);
+                var femalePercentageString = femalePercentage + "%";
+                this.$female.width(femalePercentageString);
+                this.$maleText.text(malePercentage);
+                this.$femaleText.text(femalePercentageString);
+                var n = Math.floor(350 * this.pokemon.percentage_male / 100 + 10);
+                if (this.$genderHandle) {
+                    this.$genderHandle.show();
+                    this.$genderHandle.css("left", n);
+                }
+                if (this.pokemon.percentage_male > 80) {
+                    this.$femaleText.hide();
+                    this.$male.css("border-radius", "50px");
+                }
+                else {
+                    this.$femaleText.show();
+                }
+                if (femalePercentage > 80) {
+                    this.$maleText.hide();
+                    this.$female.css("border-radius", "50px");
+                }
+                else {
+                    this.$maleText.show();
+                }
+            }
+            else {
+                this.$nb.show();
+                this.$nb.width("100%");
+                this.$male.hide();
+                this.$female.hide();
+                if (this.$genderHandle)
+                    this.$genderHandle.hide();
+            }
+        }
+    }
+    static prepareCatchScreen() {
+        if (!this.pokemon)
+            return;
+        var weightString = this.pokemon.weight_kg.toString();
+        var heightString = this.pokemon.height_m.toString();
+        if (weightString == "") {
+            weightString = "---";
+        }
+        else {
+            weightString = weightString + " kg";
+        }
+        if (heightString == "") {
+            heightString = "---";
+        }
+        else {
+            heightString = heightString + " m";
+        }
+        if (this.$weight) {
+            this.$weight.text("Weight: " + weightString);
+        }
+        if (this.$height) {
+            this.$height.text("Height: " + heightString);
+        }
+        if (this.$xpGrowth) {
+            this.$xpGrowth.text("Experience growth: " + this.pokemon.experience_growth);
+        }
+        if (this.$happiness) {
+            this.$happiness.text("Base Happiness: " + this.pokemon.base_happiness);
+        }
+        if (this.$captureRate) {
+            this.$captureRate.text("Capture Rate: " + this.pokemon.capture_rate);
+        }
     }
 }
 //# sourceMappingURL=screenmanager.js.map

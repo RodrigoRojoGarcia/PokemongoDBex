@@ -26,18 +26,22 @@
                 <!-- Wrapper pantalla superior -->
                 <div id = "upperScreen">
                     
-                    <!-- Contiene el nombre, el número y los tipos del pokemon seleccionado -->
-                    <div id = "header">
 
-                        <!-- Nombre del pokemon -->
-                        <p id = "pokemonNameHeader">#12 Butterfree</p>
+                    <div id="pokemonNameAndType">
 
+                        <!-- Contiene el nombre, el número y los tipos del pokemon seleccionado -->
+                        <div id = "header">
+                            <!-- Nombre del pokemon -->
+                            <p id = "pokemonNameHeader" class="allignL">#--- ----------</p>                      
+                        </div>
                         <!-- Wrapper de los tipos del pokemon -->
                         <div id = "pokemonTypeHeader">
-
+                            <div id="type1"></div>
+                            <div id="type2"></div>
                         </div>
-                        
+
                     </div>
+                    
 
                     <!-- Wrapper de la imagen del pokémon-->
                     <div id = "imageBackground">
@@ -49,36 +53,34 @@
                     <!-- Visualización de la pantalla de stats -->
                     <div id = "stats" class = "dataScreen" style = "transform: scale(1)">
                         <div id="abilities">
-                            <div id="ability0">Power of Alchemy</div>
-                            <div id="ability1">mmmmmmmmmmmmmmmm</div>
-                            <div id="ability2">mmmmmmmmmmmmmmmm </div>
-                            <div id="ability3">mmmmmmmmmmmmmmmm</div>
-                            <div id="ability4">mmmmmmmmmmmmmmmm</div>
-                            <div id="ability5">mmmmmmmmmmmmmmmm</div>
                         </div>
                         <div id="baseStats">
-                            <div id="hp" class="allignR statHeader">HP</div> <div id="HPvalue" class="allignL statValue">256</div>
-                            <div id="spatk" class="allignR statHeader statRightColumn">SP.ATK</div><div id="SpAtkvalue" class="allignL statValue">256</div>
-                            <div id="atk" class="allignR statHeader">ATTACK</div><div id="Atkvalue" class="allignL statValue">256</div>
-                            <div id="spdef" class="allignR statHeader statRightColumn">SP.DEF</div><div id="SpDefvalue" class="allignL statValue">256</div>
-                            <div id="def" class="allignR statHeader">DEFENSE</div><div id="Defvalue" class="allignL statValue">256</div>
-                           <div id="speed" class="allignR statHeader statRightColumn">SPEED</div><div id="Speedvalue" class="allignL statValue">256</div>
+                            <div id="hp" class="allignR statHeader">HP</div> <div id="HPvalue" class="allignL statValue">---</div>
+                            <div id="spatk" class="allignR statHeader statRightColumn">SP.ATK</div><div id="SpAtkvalue" class="allignL statValue">---</div>
+                            <div id="atk" class="allignR statHeader">ATTACK</div><div id="Atkvalue" class="allignL statValue">---</div>
+                            <div id="spdef" class="allignR statHeader statRightColumn">SP.DEF</div><div id="SpDefvalue" class="allignL statValue">---</div>
+                            <div id="def" class="allignR statHeader">DEFENSE</div><div id="Defvalue" class="allignL statValue">---</div>
+                           <div id="speed" class="allignR statHeader statRightColumn">SPEED</div><div id="Speedvalue" class="allignL statValue">---</div>
                         </div>
                     </div>
                     
                     <!-- Visualizacion de la pantalla de crianza -->
                     <div id = "breeding" class = "dataScreen" style = "transform: scale(1)">
                         <div id="breedStats">
-                            <div id = "weight" class="allignL"> 
-                                <p id="weightText">Weight: </p>
+                            <div id = "base-steps" class="allignL"> 
+                                <p id="base-stepsText">Base Steps: </p>
                             </div>
-                            <div id = "height" class="allignL"> 
-                                <p id="heightText">Height: </p> 
+                            <div id = "classification" class="allignR"> 
+                                <p id="classificationText">Classification </p>
                             </div>
+
                         </div>
                         
                         <div id = "breedingImage"></div>
+                        <div id = "maleSign">♂</div>
+                        <div id = "femaleSign">♀</div>
                         <div id="genderDisplay">
+                            
                             <div id = "male" class="allignL percentage">
                                 <p id="maleText">Male: 50%</p>
                             </div>
@@ -97,15 +99,43 @@
                     </div>
 
                     <!-- Visualizacion de la pantalla de captura -->
-                    <div id = "catching" class = "dataScreen" style = "transform: scale(0)">
-                        <p id = "catchingNameHeader">Catching</p>
-                        <p id = "catchingText">El catching</p>
+                    <div id = "catching" class = "dataScreen" style = "transform: scale(1)">
+                        <div id="catchingStats">
+                            <div id = "weight" class="allignL"> 
+                                <p id="weightText">Weight: </p>
+                            </div>
+                            <div id = "height" class="allignL"> 
+                                <p id="heightText">Height: </p> 
+                            </div>
+                            <div id="xpGrowth" class="allignL">
+                                <p id="xpGrowthText">Experience Growth: </p>
+                            </div>
+                            <div id="happiness" class="allignL">
+                                <p id="happinessText">Base Happiness: </p>
+                            </div>
+                            <div id="captureRate" class="allignL">
+                                <p id="captureRateText">Capture Rate: </p>
+                            </div>
+                        </div>
+                        
                     </div>
                     
                     <!-- Visualizacion de la pantalla de compatibilidad -->
                     <div id = "typeCompatibility" class = "dataScreen" style = "transform: scale(0)">
-                        <p id = "typeCompatibilityNameHeader">Type Compatibility</p>
-                        <p id = "typeCompatibilityText">tipos de compatibilidad nano</p>
+                        <div id = "typeCompatibilitySlider">
+                            <!-- Boton para pasar a la pantalla izq -->
+                            <button type = "button" id = "typeLeft">
+                                <p id="textButton">🠜</p>
+                            </button>
+                            <!-- Pantalla de estadísticas que vislumbras -->
+                            <p id = "hola">  </p>
+                            <!-- Boton para pasar a la pantalla dcha -->
+                            <button type = "button" id = "typeRight">
+                                <p id="textButton">🠞</p>
+                            </button>                        
+                        </div>
+
+                    
                     </div>
                     
                     <!-- Visualizacion de la pantalla del instagram del pokemon -->
@@ -140,8 +170,11 @@
 
                         </div>
 
-                        <div id="loading">
-                            <p>Cargando</p>
+                        <div id="loading" class="loadingShown">
+                            <div>
+                                <p>Cargando</p>
+                                <div id="loadingSpin"></div>
+                            </div>
                         </div>
 
                     </div>

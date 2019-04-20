@@ -24,6 +24,7 @@ declare type Pokemon = {
     against_rock :number,
     against_steel :number,
     against_water :number,
+    attack :number,
     base_egg_steps :number,
     base_total :number,
     base_happiness :number,    
@@ -31,7 +32,7 @@ declare type Pokemon = {
     classfication :string,
     defense :number,
     experience_growth :number,
-    height_m :number
+    height_m :number | "",
     hp :number,
     japanese_name :string,
     name :string,
@@ -42,7 +43,7 @@ declare type Pokemon = {
     speed :number
     type1 :string,
     type2 :string,
-    weight :number,
+    weight_kg :number | "",
     generation :number,
     is_legendary :number,
     custom :boolean,

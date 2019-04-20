@@ -9,7 +9,8 @@ public class Pokemon {
 
     private String name, japaneseName, classification, type1, type2;
     private int hp, attack, defense, sp_attack, sp_defense, speed, baseTotal;
-    private int weight, height, percentageMale;
+    private int weight, height;
+    private float percentageMale;
     private int generation, pokedexNumber;
     private boolean legendary, custom, pseudolegendary;
     private String[] abilities;
@@ -23,7 +24,7 @@ public class Pokemon {
 
     public Pokemon(String name, String japaneseName, String classification, String type1, String type2, 
                     int hp, int attack, int defense, int sp_attack, int sp_defense, int speed, int baseTotal, 
-                    int weight, int height, int percentageMale, 
+                    int weight, int height, float percentageMale, 
                     int generation, 
                     boolean legendary, boolean custom, boolean pseudolegendary,
                     String[] abilities, 
@@ -193,11 +194,11 @@ public class Pokemon {
         this.height = height;
     }
 
-    public int getPercentageMale() {
+    public float getPercentageMale() {
         return this.percentageMale;
     }
 
-    public void setPercentageMale(int percentageMale) {
+    public void setPercentageMale(float percentageMale) {
         this.percentageMale = percentageMale;
     }
 

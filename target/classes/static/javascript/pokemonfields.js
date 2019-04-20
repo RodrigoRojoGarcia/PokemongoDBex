@@ -19,6 +19,7 @@ var PokemonFields;
     PokemonFields["against_rock"] = "against_rock";
     PokemonFields["against_steel"] = "against_steel";
     PokemonFields["against_water"] = "against_water";
+    PokemonFields["attack"] = "attack";
     PokemonFields["base_egg_steps"] = "base_egg_steps";
     PokemonFields["base_happiness"] = "base_happiness";
     PokemonFields["base_total"] = "base_total";

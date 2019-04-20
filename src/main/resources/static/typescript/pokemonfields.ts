@@ -18,6 +18,7 @@ enum PokemonFields {
     against_rock        = "against_rock",
     against_steel       = "against_steel",
     against_water       = "against_water",
+    attack              = "attack",
     base_egg_steps      = "base_egg_steps",
     base_happiness      = "base_happiness",
     base_total          = "base_total",
