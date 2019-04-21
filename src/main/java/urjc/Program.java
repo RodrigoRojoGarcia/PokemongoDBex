@@ -18,13 +18,12 @@ public class Program
     public static void main( String[] args )
     {
         SpringApplication.run(Program.class);
-        System.out.println("¡Servidor listo!");
+
         client = new MongoClient("localhost:27017");
         database = client.getDatabase("pokedex");
-
+        System.out.println("¡Servidor listo!");
         // crear xml prueba
         // xml();
-        AuxiliaryMethods.setNonBinaryGender();
     }
 
     public static MongoCollection<Document> getPokedex() {
@@ -33,6 +32,10 @@ public class Program
 
     public static void databaseClose() {
         client.close();
+    }
+
+    public static MongoClient getClient() {
+        return Program.client;
     }
 
     public static void xml() {

@@ -331,13 +331,15 @@ button:active {
     width: 50%;
     display: none;
     border-radius: 50px 0 0 50px;   
+    transition: width 0.1s;
 }
 
 #female{
     background-color: orangered;
     width: 50%;
     display: none;
-    border-radius: 0 50px 50px 0px; 
+    border-radius: 0 50px 50px 0px;
+    transition: width 0.1s;
 }
 
 #non-binary{
@@ -378,7 +380,8 @@ button:active {
     top: 206px;
     left: 180px;
     display: none;
-    
+    transition: left 0.1s linear;
+
 }
 
 .percentage{
@@ -422,22 +425,30 @@ button:active {
     background: rgb(225, 199, 255);
 }
 
-
-
-
-#typeCompatibilitySlider{
+#typeCompatibilitySelector{
     background-color: rgb(130, 255, 182); 
     margin: 0 auto;
-    width: 300px;
+    width: 370px;
+    height: 55px;
     top: 10px;
     font-size:30px;
-    position:absolute;
+    position:relative;
     border-style: solid;
     border-width: 1px;
     border-radius: 10px;
+
 }
 
-#typeCompatibilitySlider > button {
+#compatibility {
+    margin:  0 0 0 0;
+    width: 200px;
+    height: 35px;
+    position: relative;
+    top:12px;
+    display: inline-block;
+}
+
+#typeCompatibilitySelector > button {
     background-color: rgb(255, 130, 130); 
     margin: 0 auto;
     display: flex;
@@ -446,55 +457,162 @@ button:active {
     border-width: 1px;
     border-radius: 100%;
     position: relative;
+    top:5px;
     width: 45px;
     height: 45px;
-    margin: 12px;
     font-size: 35px;
-    transition: left 0.2s, transform 0.1s;
+    transition: left 0.2s linear, transform 0.1s linear, background-color 0.1s linear;
 }
 
-#typeCompatibilitySlider > button > p {
-    margin: 0px;
+#typeCompatibilitySelector > button > p {
+    margin: 0;
     position: relative;
-    top:-11px;
-    left:-4px;
-    
-}
+    top:-13px;
 
+}
+#typeTextButtonL{
+    position: relative;
+    left: -5px;
+}
 
 /*typeLeft, typeRight*/
-
-#typeLeft {
+#typeLeft{
+    margin: 0;
     float: left;
+    position: relative;
+    left: 5px;
 }
 
-#typeRight {
+#typeRight{
+    margin: 0;
     float: right;
-    top: -72px;
-}
-
-#typeCompatibilitySlider > button:hover{
-    background-color: rgb(255, 130, 130); 
-}
-
-#typeCompatibilityButtons > button:active {
-    background-color: rgb(255, 130, 130); 
+    position: relative;
     left: -5px;
+}
+
+
+#typeCompatibilitySelector > button:hover{
+    background-color: rgb(252, 169, 169); 
+}
+
+#typeLeft:active { 
+    left: -5px;
+}
+#typeRight:active {
+     
+    left: 5px;
+}
+#typeCompatibilitySelector > button:active{
+    background-color: rgb(66, 56, 56);
 }
 
 #typeCompatibility {
     background: rgb(199, 255, 216);
 }
 
-
-
-#formsNameHeader{
-    font-size: 40px;
-    margin: 0px;
+#types{
+    display:flex;
+    flex-wrap: wrap;
+    position: relative;
+    top: 20px;
+    left: 30px;
 }
+
+#types > div{
+    background-size: 70px 30px;
+    margin: 5px;
+    width: 70px;
+    height: 30px;
+    transition: background-image 0.1s linear;
+
+}
+
+
+
+
 
 #forms {
     background: rgb(199, 251, 255);
+    display:flex;
+    flex-wrap:wrap;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#forms > div {
+    margin: 0 auto;
+    margin: 8px;
+    font-size:30px;
+    width: 165px;
+    height:30px;
+    border-radius: 10px;
+    background: rgb(74, 190, 74);
+    border-style: solid;
+    border-width: 2px;
+    transition: color 0.1s linear, transform 0.1s linear, background-color 0.1s linear;
+}
+
+#form-base{
+    background: lightgrey !important;
+}
+
+#form-male{
+    background: rgb(189, 86, 189) !important;
+}
+
+#form-female{
+    background: rgb(255, 100, 44) !important;
+}
+
+#form-alola{
+    background: violet !important;
+}
+
+#form-mega{
+    background: rgb(71, 153, 71) !important;
+}
+
+#form-megay{
+    background: linear-gradient(orange, rgb(228, 228, 152)) !important;
+}
+
+#form-megax{
+    background: linear-gradient(rgb(97, 97, 110),rgb(119, 160, 235)) !important;
+}
+
+.selectedForm {
+    border-color: red;
+}
+
+#forms > div:hover {
+    transform: scale(1.1);
+    background: white !important;
+    color: black
+}
+
+#forms > div:active {
+    transform: scale(1);
+    background: black !important;
+    color: white;
+}
+
+#forms::-webkit-scrollbar {
+    width: 5px;
+}
+
+#forms::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+#forms::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: white;
+}
+#forms::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+    background: rgb(139, 139, 139);
 }
 
 .dataScreen {
@@ -623,7 +741,8 @@ button:active {
      height: 325px;
      display: flex;
      flex-wrap: wrap;
- }
+}
+
 #grid {
     display: flex;
     flex-wrap: wrap;
@@ -635,12 +754,11 @@ button:active {
     padding: 10px;
     position: relative;
     top: 20px;
-    
 }
 
-#loading {
+#loading, #noconnection {
     height: 165px;
-    width: 410px;
+    width: 400px;
     padding: 10px;
     position: relative;
     top: -235px;
@@ -671,7 +789,14 @@ button:active {
     left: 20px;
 }
 
-#loading > div > p {
+#noconnection > div {
+    margin: 0px;
+    position: relative;
+    top: 45px;
+    left: 0px;
+}
+
+#loading > div > p, #noconnection > div > p {
     display: inline;
 }
 

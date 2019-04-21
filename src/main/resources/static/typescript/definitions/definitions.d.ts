@@ -48,5 +48,9 @@ declare type Pokemon = {
     is_legendary :number,
     custom :boolean,
     pseudolegendary :boolean,
-    images :string[]
+    images :string[],
+    normalComp :string[],
+    resistComp :string[],
+    weakComp :string[],
+    immuneComp :string[]
 }

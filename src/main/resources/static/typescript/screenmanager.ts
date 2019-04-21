@@ -17,6 +17,8 @@ class ScreenManager {
     private static $abilities? :jQuery;
 
     private static $loading? :jQuery;
+
+    private static $noconnection? :jQuery;
     
     private static baseStatsQueries? :jQuery[];
 
@@ -45,8 +47,18 @@ class ScreenManager {
     private static $happiness? :jQuery;
 
     private static $captureRate? :jQuery;
+
+    private static $compatibility? :jQuery;
+
+    private static $types? :jQuery;
+
+    private static $forms? :jQuery;
     
     private static pokemon? :Pokemon;
+
+    private static online = true;
+
+    private static pingControlInterval :number;
 
     public static updateScreensWithState() {
         if(!this.screenQueries || !this.$displayScreen)
@@ -81,7 +93,10 @@ class ScreenManager {
                     "<img src=\"images/icons/" + pokemon.pokedex_number + ".png\" class=\"gridImage\"/>" +
                     "</div>") 
             ).fail(() =>
-                divMap.set(pokemon.pokedex_number, "<div id=\"pkicon" + pokemon.pokedex_number + "\" " + onclick + "><img src=\"images/icons/susti.png\"/></div>")
+                divMap.set(pokemon.pokedex_number,
+                    "<div id=\"pkicon" + pokemon.pokedex_number + "\" " + onclick + ">" +
+                    "<p>" + ScreenManager.padWithZeroes(pokemon.pokedex_number, 3) + "</p>" +
+                    "<img src=\"images/icons/susti.png\" class=\"gridImage\"/></div>")
             ).then(() => {
                 if(divMap.size == pokemonList.length)
                     ScreenManager.updateGridAux($grid, divMap);
@@ -107,6 +122,7 @@ class ScreenManager {
         ScreenManager.$displayScreen = $("#displayScreen");
         ScreenManager.$image = $("#image");
         ScreenManager.$loading = $("#loading");
+        ScreenManager.$noconnection = $("#noconnection");
         ScreenManager.$pokemonName = $("#pokemonNameHeader");
         ScreenManager.$type1 = $("#type1");
         ScreenManager.$type2 = $("#type2");
@@ -125,7 +141,29 @@ class ScreenManager {
         ScreenManager.$happiness = $("#happinessText");
         ScreenManager.$captureRate = $("#captureRateText");
         ScreenManager.$classification = $("#classificationText");
-        
+        ScreenManager.$compatibility = $("#compatibility");
+        ScreenManager.$types = $("#types");
+        ScreenManager.$forms = $("#forms");
+    }
+
+    public static initPingControl() {
+        var that = this;
+        this.pingControlInterval = setInterval(function() {
+            Connection.ping("spring", function(success) {
+                if(that.$noconnection) {
+                    if(success) {
+                        that.showNoConnection(false);
+                    } else {
+                        that.showNoConnection(true);
+                        that.showLoading(false);
+                    }
+                }
+                that.online = success;
+                console.log(success);
+            });
+        }, 1000);
+        if(ScreenManager.$noconnection)
+        ScreenManager.$noconnection.hide();
     }
 
     public static setPokemon(id :number, listener? :(pokemon :Pokemon) => void) {
@@ -142,15 +180,8 @@ class ScreenManager {
                 else
                     selected = pokemon.images[0];
             }
-            Connection.ajaxGet("/images/pokemon/"+selected)
-            .done(() => {
-                if(that.$image)
-                    that.$image.attr("src", "/images/pokemon/"+selected);
-            }).fail(() => {
-                if(that.$image)
-                    that.$image.attr("src", "/images/pokemon/susti.png");
-            });
-            
+            ScreenManager.setPokemonImage(selected);
+
             if(listener)
                 listener(pokemon);
         });
@@ -179,6 +210,9 @@ class ScreenManager {
         ScreenManager.prepareStatsScreen();
         ScreenManager.prepareBreedScreen();
         ScreenManager.prepareCatchScreen();
+        ScreenManager.sortTypeCompatibilities();
+        ScreenManager.updateTypeCompatibilityScreen();
+        ScreenManager.prepareFormsScreen();
     }
 
     private static padWithZeroes(num :number, minFigures :number) {
@@ -208,6 +242,18 @@ class ScreenManager {
             setTimeout(function() {
                 if(ScreenManager.$loading) {
                     show ? ScreenManager.$loading.show() : ScreenManager.$loading.hide();
+                }
+            }, 200);
+        }
+    }
+
+    private static showNoConnection(show :boolean) {
+        if(ScreenManager.$noconnection) {
+            ScreenManager.$noconnection.removeClass(show ? "loadingHidden" : "loadingShown");
+            ScreenManager.$noconnection.addClass(show ? "loadingShown" : "loadingHidden");
+            setTimeout(function() {
+                if(ScreenManager.$noconnection) {
+                    show ? ScreenManager.$noconnection.show() : ScreenManager.$noconnection.hide();
                 }
             }, 200);
         }
@@ -329,4 +375,163 @@ class ScreenManager {
                 this.$captureRate.text("Capture Rate: "+this.pokemon.capture_rate);
             }
     }
+
+    public static updateTypeCompatibilityScreen(){
+
+        if(this.$compatibility){
+            this.$compatibility.text(Compatibility.getName(Compatibility.get()));
+        }
+
+        if(!this.pokemon)
+            return;
+
+
+
+        if(this.$types) {
+            this.$types.empty();
+            if(Compatibility.get()==CompatibilityValue.NORMAL){
+                for(let type of this.pokemon.normalComp) {
+                    this.$types.append("<div id=\"type-"+type+"\"></div>");
+                    $("#type-"+type).css("background-image","url('../images/types/"+type+".png')");
+                }
+            } else
+            if(Compatibility.get()==CompatibilityValue.RESISTANT){
+                for(let type of this.pokemon.resistComp){
+                    this.$types.append("<div id=\"type-"+type+"\"></div>")
+                    $("#type-"+type).css("background-image","url('../images/types/"+type+".png')");
+                }
+            }else 
+            if(Compatibility.get()==CompatibilityValue.WEAK){
+                for(let type of this.pokemon.weakComp){
+                    this.$types.append("<div id=\"type-"+type+"\"></div>")
+                    $("#type-"+type).css("background-image","url('../images/types/"+type+".png')");
+                }
+            }else
+            if(Compatibility.get()==CompatibilityValue.IMMUNE){
+                for(let type of this.pokemon.immuneComp){
+                    this.$types.append("<div id=\"type-"+type+"\"></div>")
+                    $("#type-"+type).css("background-image","url('../images/types/"+type+".png')");
+                }
+            }
+        }
+        
+        
+        
+
+        
+    }
+
+    private static sortTypeCompatibilities(){
+        if(!this.pokemon)
+            return;
+
+        var poketypes = [
+            "bug", "dark", "dragon",
+            "electric","fairy","fight",
+            "fire", "flying", "ghost",
+            "grass","ground","ice",
+            "normal","poison","psychic",
+            "rock","steel","water"
+        ];
+        var poketypesImages = [
+            "bug", "dark", "dragon",
+            "electric","fairy","fighting",
+            "fire", "flying", "ghost",
+            "grass","ground","ice",
+            "normal","poison","psychic",
+            "rock","steel","water"
+        ];
+        this.pokemon.normalComp = [];
+        this.pokemon.resistComp = [];
+        this.pokemon.weakComp = [];
+        this.pokemon.immuneComp = [];
+        for(let i = 0; i < poketypes.length; i++){
+            if((this.pokemon as any)["against_" + poketypes[i]] == 1){
+                this.pokemon.normalComp.push(poketypesImages[i]);
+            }else if((this.pokemon as any)["against_" + poketypes[i]] == 0){
+                this.pokemon.immuneComp.push(poketypesImages[i]);
+            }else if((this.pokemon as any)["against_" + poketypes[i]] < 1){
+                this.pokemon.resistComp.push(poketypesImages[i]);
+            }else if((this.pokemon as any)["against_" + poketypes[i]] > 1){
+                this.pokemon.weakComp.push(poketypesImages[i])
+            }
+        }
+
+    }
+
+    private static prepareFormsScreen(){
+        if(!this.pokemon)
+            return;
+
+        var formDivs = [];
+
+        if(this.$forms && this.$image){
+            this.$forms.empty();
+            for(let filename of this.pokemon.images){
+                var form = ScreenManager.getFormIdAndNameFromImageFileName(filename, this.pokemon.images.indexOf(this.pokemon.pokedex_number + "f.png") != -1);
+                let onclick = "onclick=\"ScreenManager.setPokemonImage('" +filename.trim()+ "')\"";
+                formDivs.push("<div id=\"form-"+form.id+"\" " +onclick+">"+form.name+"</div>");   
+            }
+
+            formDivs.sort();
+            for(let div of formDivs) {
+                this.$forms.append(div);
+            }
+            
+        }
+    }
+
+    private static setPokemonImage(form :string) {
+        var that = this;
+        Connection.ajaxGet("/images/pokemon/"+form)
+        .done(() => {
+            if(that.$forms)
+                that.$forms.children().removeClass("selectedForm");
+            if(that.$image && that.pokemon){
+                that.$image.attr("src", "/images/pokemon/"+form);
+                let id = that.getFormIdAndNameFromImageFileName(form, that.pokemon.images.indexOf(that.pokemon.pokedex_number + "f.png") != -1).id;
+                $("#form-"+id).addClass("selectedForm");
+            }
+        }).fail(() => {
+            if(that.$image)
+                that.$image.attr("src", "/images/pokemon/susti.png");
+        });
+    }
+
+    private static getFormIdAndNameFromImageFileName(imageName :string, hasGenderDiff? :boolean) {
+        var imgwoext = "";
+        var aux = imageName.split('.');
+        for(let i = 0; i < aux.length-1; i++){
+            imgwoext += aux[i];
+        }
+        var formName = "";
+        var formId = "";
+        aux = imgwoext.split('-');
+        for(let i = 1; i < aux.length; i++) {
+            formName += aux[i].charAt(0).toUpperCase() + aux[i].slice(1);
+            if(i < aux.length - 1) {
+                formName += " ";
+            }
+            formId += aux[i];
+        }
+        if(formName == "") {
+            if(aux[0].endsWith("f")) {
+                formName = "Female";
+                formId = "female";
+            } else if(hasGenderDiff) {
+                formName = "Male";
+                formId = "male";
+            } else {
+                formName = "Base";
+                formId = "base";
+            }
+        }
+
+        return {
+            id: formId,
+            name: formName
+        };
+    }
+
+
 }

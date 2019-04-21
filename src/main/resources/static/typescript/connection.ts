@@ -4,7 +4,7 @@ type MongoQueryReponse = {pokedex_number :number, is_legendary :number};
 class Connection {
 
     public static getCount(callback :(count :number) => void) {
-        Connection.ajaxGet("pokemon/count")
+        Connection.ajaxGet("query/count")
         .done(count => callback(count))
         .fail(() => console.error("No se ha podido acceder al servidor para obtener el número de Pokémon."));
     }
@@ -35,6 +35,12 @@ class Connection {
         Connection.ajaxGet("query/" + id)
         .done(pokemon => listener(pokemon))
         .fail(() => console.error("No se ha podido acceder al servidor para obtener al Pokémon " + id));
+    }
+
+    public static ping(target : "spring" | "mongo", listener :(success :boolean) => void) {
+        Connection.ajaxGet("ping/" + target)
+        .done(r => listener(r == "succ"))
+        .fail(r => listener(false));
     }
 
     public static ajaxGet(url :string) {

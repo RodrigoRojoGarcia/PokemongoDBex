@@ -9,6 +9,7 @@
         <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 
         <script src="javascript/state.js"></script>
+        <script src="javascript/compatibilty.js"></script>
         <script src="javascript/screenmanager.js"></script>
         <script src="javascript/uimanager.js"></script>
         <script src="javascript/pokemonfields.js"></script>
@@ -122,26 +123,28 @@
                     
                     <!-- Visualizacion de la pantalla de compatibilidad -->
                     <div id = "typeCompatibility" class = "dataScreen" style = "transform: scale(0)">
-                        <div id = "typeCompatibilitySlider">
+                        <div id = "typeCompatibilitySelector">
                             <!-- Boton para pasar a la pantalla izq -->
                             <button type = "button" id = "typeLeft">
-                                <p id="textButton">🠜</p>
+                                <p id="typeTextButtonL" class="allignL">🠜</p>
                             </button>
                             <!-- Pantalla de estadísticas que vislumbras -->
-                            <p id = "hola">  </p>
+                            <p id = "compatibility"> </p>
                             <!-- Boton para pasar a la pantalla dcha -->
                             <button type = "button" id = "typeRight">
-                                <p id="textButton">🠞</p>
+                                <p id="typeTextButtonR" class="allignR">🠞</p>
                             </button>                        
                         </div>
-
+                        <div id="types">
+                        
+                        
+                        </div>
                     
                     </div>
                     
                     <!-- Visualizacion de la pantalla del instagram del pokemon -->
                     <div id = "forms" class = "dataScreen" style = "transform: scale(0)">
-                        <p id = "formsNameHeader">Formitas</p>
-                        <p id = "formsText">formas del pokimon</p>
+                        
                     </div>
 
                     <!-- Wrapper la visualización -->
@@ -174,6 +177,12 @@
                             <div>
                                 <p>Cargando</p>
                                 <div id="loadingSpin"></div>
+                            </div>
+                        </div>
+
+                        <div id="noconnection" class="loadingHidden">
+                            <div>
+                                <p>Sin conexión</p>
                             </div>
                         </div>
 

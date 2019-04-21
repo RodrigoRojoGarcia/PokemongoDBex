@@ -1,6 +1,8 @@
 $(document).ready(function() {
     ScreenManager.doQueries();
     ScreenManager.updateScreensWithState();
+    ScreenManager.updateTypeCompatibilityScreen();
+    ScreenManager.initPingControl();
     
     UIManager.assignInput();
     

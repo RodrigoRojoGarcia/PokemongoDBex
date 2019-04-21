@@ -30,6 +30,11 @@ public class MongoQueryController {
         return ret;
     }
 
+    @GetMapping("/count")
+    public long getCount() {
+        return Program.getPokedex().countDocuments();
+    }
+
     @PostMapping
     public Collection<Document> getNumbers(@RequestBody MongoQuery[][] queries) {
         List<Document> orList = new ArrayList<>();
@@ -67,11 +72,11 @@ public class MongoQueryController {
     }
 
 
-    private static Collection<Document> iterableToCollection(FindIterable<Document> iterable) {
-        List<Document> ret = new ArrayList<>();
-        for (Document document : iterable) {
-            ret.add(document);
-        }
-        return ret;
-    }
+    // private static Collection<Document> iterableToCollection(FindIterable<Document> iterable) {
+    //     List<Document> ret = new ArrayList<>();
+    //     for (Document document : iterable) {
+    //         ret.add(document);
+    //     }
+    //     return ret;
+    // }
 }

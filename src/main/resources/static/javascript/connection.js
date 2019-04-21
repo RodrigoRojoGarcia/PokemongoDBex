@@ -1,6 +1,6 @@
 class Connection {
     static getCount(callback) {
-        Connection.ajaxGet("pokemon/count")
+        Connection.ajaxGet("query/count")
             .done(count => callback(count))
             .fail(() => console.error("No se ha podido acceder al servidor para obtener el número de Pokémon."));
     }
@@ -30,6 +30,11 @@ class Connection {
         Connection.ajaxGet("query/" + id)
             .done(pokemon => listener(pokemon))
             .fail(() => console.error("No se ha podido acceder al servidor para obtener al Pokémon " + id));
+    }
+    static ping(target, listener) {
+        Connection.ajaxGet("ping/" + target)
+            .done(r => listener(r == "succ"))
+            .fail(r => listener(false));
     }
     static ajaxGet(url) {
         return Connection.StaticJQuery.ajax({
