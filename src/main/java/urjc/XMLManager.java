@@ -10,47 +10,51 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class XMLManager {
-    private final String path = System.getProperty("user.dir") + "/src/main/resources/static/";
-    private final String relativePath = "src/main/resources/static/";
+    private final static String path = System.getProperty("user.dir") + "/src/main/resources/static/";
+    private final static String relativePath = "src/main/resources/static/";
 
     public XMLManager(){
 
     }
 
     //Metodo que crea el fichero XML
-    public void readXML(){
+    public static void readXML(){
         try{
             Document doc = getDoc("config.xml");
             Element root = doc.getRootElement();
 
             //Muestra los elementos dentro de la configuracion del xml
-            System.out.println("Screen Width: " + root.getChildText("width"));
-            System.out.println("Screen Height : " + root.getChildText("height"));
+            
             System.out.println("Color : " + root.getChildText("color"));
-            System.out.println("UserName : " + root.getChildText("userName"));
+            System.out.println("Pattern : " + root.getChildText("pattern"));
+            System.out.println("Background : " + root.getChildText("background"));
+            
 
         } catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
 
-    public void createXML(){
+    
+
+    public static void createXML(){
         try{
-            Element config = new Element("config");
-            Document doc = new Document(config); //Establece el config como raiz
-            
-            //Introducir elementos en el xml dentro de config(raiz)
-            config.addContent(new Element("width").setText("640"));
-            config.addContent(new Element("height").setText("480"));
-            config.addContent(new Element("color").setText("red"));
-            config.addContent(new Element("userName").setText(""));
+            File configFile = new File(relativePath + "config.xml");
+            if(!configFile.exists()) {
+                Element config = new Element("config");
+                Document doc = new Document(config); //Establece el config como raiz
+                Config conf = new Config();
+                //Introducir elementos en el xml dentro de config(raiz)
+                config.addContent(new Element("color").setText(conf.getColor()));
+                config.addContent(new Element("pattern").setText(conf.getPattern()));
+                config.addContent(new Element("background").setText(conf.getBackground()));
 
-            XMLOutputter xmlOutput = new XMLOutputter();
+                XMLOutputter xmlOutput = new XMLOutputter();
 
-            //Crea el fichero con los datos
-            xmlOutput.setFormat(Format.getPrettyFormat());
-            xmlOutput.output(doc, new FileOutputStream(new File(relativePath + "config.xml")));
-
+                //Crea el fichero con los datos
+                xmlOutput.setFormat(Format.getPrettyFormat());
+                xmlOutput.output(doc, new FileOutputStream(configFile));
+            }
 
         } catch (Exception e) {
 
@@ -58,22 +62,25 @@ public class XMLManager {
         }
     }
 
-    public void updateXML(int w, int h, String c, String u){
+    public static void updateXML(String c, String p, String b){
         try{
             Document doc = getDoc("config.xml");
             Element config = doc.getRootElement();
             
             //Coger los hijos de la raiz
-            Element width = config.getChild("width");        
-            Element height = config.getChild("height");
+            
             Element color = config.getChild("color");
-            Element userName = config.getChild("userName");
+            Element pattern = config.getChild("pattern");
+            Element background = config.getChild("background");
+
+            
            
             //Cambiar el contenido
-            width.setText(Integer.toString(w));
-            height.setText(Integer.toString(h));
+            
             color.setText(c);
-            userName.setText(u);
+            pattern.setText(p);
+            background.setText(b);
+            
      
             XMLOutputter xmlOutput = new XMLOutputter();
 
@@ -86,7 +93,7 @@ public class XMLManager {
         }
     }
     //Metodo que te devuelve el documento
-    private Document getDoc(String file){
+    public static Document getDoc(String file){
         Document doc = null;
         try{
             SAXBuilder builder = new SAXBuilder();

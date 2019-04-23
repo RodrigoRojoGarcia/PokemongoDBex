@@ -13,7 +13,6 @@ public class Program
 {
     private static MongoClient client;
     private static MongoDatabase database;
-    private static XMLManager xmlManager;
 
     public static void main( String[] args )
     {
@@ -21,9 +20,9 @@ public class Program
 
         client = new MongoClient("localhost:27017");
         database = client.getDatabase("pokedex");
-        System.out.println("¡Servidor listo!");
+        System.out.println("=== ¡SERVIDOR LISTO! ===");
         // crear xml prueba
-        // xml();
+        xml();
     }
 
     public static MongoCollection<Document> getPokedex() {
@@ -39,10 +38,9 @@ public class Program
     }
 
     public static void xml() {
-        xmlManager = new XMLManager();
-        xmlManager.createXML();
-        xmlManager.readXML();
-        xmlManager.updateXML(100, 200, "blue", "keldeo98");
-        xmlManager.readXML();
+        XMLManager.createXML();
+        XMLManager.readXML();
+        //XMLManager.updateXML("red", "LineV", "Hills");
+        //XMLManager.readXML();
     }
 }

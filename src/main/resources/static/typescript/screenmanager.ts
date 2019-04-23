@@ -6,6 +6,8 @@ class ScreenManager {
     
     private static $displayScreen? :jQuery;
 
+    private static $grid? :jQuery;
+
     private static $image? :jQuery;
 
     private static $pokemonName? :jQuery;
@@ -60,6 +62,10 @@ class ScreenManager {
 
     private static pingControlInterval :number;
 
+    private static sort = (p1 :MongoQueryReponse, p2 :MongoQueryReponse) => p1.pokedex_number - p2.pokedex_number;
+
+    private static pokemonList? :MongoQueryReponse[];
+
     public static updateScreensWithState() {
         if(!this.screenQueries || !this.$displayScreen)
             return;
@@ -79,37 +85,45 @@ class ScreenManager {
     }
 
     public static updateGrid(pokemonList :MongoQueryReponse[]){
-        var $grid = $("#grid");
-        
-        pokemonList.sort((p1, p2) => p1.pokedex_number - p2.pokedex_number);
-        var divMap = new Map<number, string>();
+        this.pokemonList = pokemonList;
+        ScreenManager.orderPokemonList(this.pokemonList);
+    }
+
+    public static orderPokemonList(pokemonList :MongoQueryReponse[]){
+        var divMap = new Map<MongoQueryReponse, string>();
+        var that = this;
+        if(pokemonList.length == 0) {
+            if(divMap.size == pokemonList.length && that.$grid)
+                ScreenManager.updateGridAux(that.$grid, divMap);
+            return;
+        }
         for(let pokemon of pokemonList) {
             let onclick = "onclick=\"ScreenManager.setPokemon(" + pokemon.pokedex_number + ")\"";
             Connection.ajaxGet("images/icons/" + pokemon.pokedex_number + ".png")
             .done(() =>
-                divMap.set(pokemon.pokedex_number,
+                divMap.set(pokemon,
                     "<div id=\"pkicon" + pokemon.pokedex_number + "\" " + onclick + ">" +
                     "<p>" + ScreenManager.padWithZeroes(pokemon.pokedex_number, 3) + "</p>" +
                     "<img src=\"images/icons/" + pokemon.pokedex_number + ".png\" class=\"gridImage\"/>" +
                     "</div>") 
             ).fail(() =>
-                divMap.set(pokemon.pokedex_number,
+                divMap.set(pokemon,
                     "<div id=\"pkicon" + pokemon.pokedex_number + "\" " + onclick + ">" +
                     "<p>" + ScreenManager.padWithZeroes(pokemon.pokedex_number, 3) + "</p>" +
                     "<img src=\"images/icons/susti.png\" class=\"gridImage\"/></div>")
             ).then(() => {
-                if(divMap.size == pokemonList.length)
-                    ScreenManager.updateGridAux($grid, divMap);
+                if(divMap.size == pokemonList.length && that.$grid)
+                    ScreenManager.updateGridAux(that.$grid, divMap);
             });
         }
     }
 
-    private static updateGridAux($grid :jQuery, divMap :Map<number, string>) {
+    private static updateGridAux($grid :jQuery, divMap :Map<MongoQueryReponse, string>) {
         let keySet = [];
         for(let key of divMap.keys()) {
             keySet.push(key);
         }
-        keySet.sort((k1, k2) => k1 - k2);
+        keySet.sort(ScreenManager.sort);
         $grid.empty();
         for(let key of keySet) {
             $grid.append(divMap.get(key) as string);
@@ -120,6 +134,7 @@ class ScreenManager {
     public static doQueries() {
         ScreenManager.screenQueries = [$("#stats"), $("#breeding"), $("#catching"), $("#typeCompatibility"), $("#forms")];
         ScreenManager.$displayScreen = $("#displayScreen");
+        ScreenManager.$grid = $("#grid");
         ScreenManager.$image = $("#image");
         ScreenManager.$loading = $("#loading");
         ScreenManager.$noconnection = $("#noconnection");
@@ -157,9 +172,8 @@ class ScreenManager {
                         that.showNoConnection(true);
                         that.showLoading(false);
                     }
+                    that.online = success;
                 }
-                that.online = success;
-                console.log(success);
             });
         }, 1000);
         if(ScreenManager.$noconnection)
@@ -171,6 +185,7 @@ class ScreenManager {
         Connection.getPokemon(id, pokemon => {
             that.pokemon = pokemon;
             ScreenManager.showPokemonInfo();
+            that.markPokemonAsSelected();
             var selected = "susti.png";
             if(pokemon.images.length > 0) {
                 let baseImage = pokemon.pokedex_number + ".png";
@@ -235,8 +250,8 @@ class ScreenManager {
         return parseFloat((Math.round(num * 100) / 100).toFixed(2));
     }
 
-    private static showLoading(show :boolean) {
-        if(ScreenManager.$loading) {
+    public static showLoading(show :boolean) {
+        if(ScreenManager.$loading && ScreenManager.online) {
             ScreenManager.$loading.removeClass(show ? "loadingHidden" : "loadingShown");
             ScreenManager.$loading.addClass(show ? "loadingShown" : "loadingHidden");
             setTimeout(function() {
@@ -385,8 +400,6 @@ class ScreenManager {
         if(!this.pokemon)
             return;
 
-
-
         if(this.$types) {
             this.$types.empty();
             if(Compatibility.get()==CompatibilityValue.NORMAL){
@@ -413,12 +426,7 @@ class ScreenManager {
                     $("#type-"+type).css("background-image","url('../images/types/"+type+".png')");
                 }
             }
-        }
-        
-        
-        
-
-        
+        }   
     }
 
     private static sortTypeCompatibilities(){
@@ -486,11 +494,11 @@ class ScreenManager {
         Connection.ajaxGet("/images/pokemon/"+form)
         .done(() => {
             if(that.$forms)
-                that.$forms.children().removeClass("selectedForm");
+                that.$forms.children().removeClass("selected");
             if(that.$image && that.pokemon){
                 that.$image.attr("src", "/images/pokemon/"+form);
                 let id = that.getFormIdAndNameFromImageFileName(form, that.pokemon.images.indexOf(that.pokemon.pokedex_number + "f.png") != -1).id;
-                $("#form-"+id).addClass("selectedForm");
+                $("#form-"+id).addClass("selected");
             }
         }).fail(() => {
             if(that.$image)
@@ -533,5 +541,40 @@ class ScreenManager {
         };
     }
 
+    private static markPokemonAsSelected() {
+        if(!this.$grid || !this.pokemon)
+            return;
 
+        this.$grid.children().removeClass("selected");
+        $("#pkicon" + this.pokemon.pokedex_number).addClass("selected");
+    }
+
+    public static updateSortLambda(){
+        this.showLoading(true);
+        if(OrderType.get() == OrderValue.NUMBER) {
+            ScreenManager.sort = ((p1, p2) => (p1.pokedex_number - p2.pokedex_number) * (!OrderType.getAscending() ? -1 : 1));
+        } else if(OrderType.get() == OrderValue.ALPHA) {
+            ScreenManager.sort = (function(p1, p2) {
+                var a = p1.name.toLowerCase();
+                var b = p2.name.toLowerCase();
+                return (a > b ? 1 : b > a ? -1 : 0) * (!OrderType.getAscending() ? -1 : 1);
+            })
+            
+        } else {
+            ScreenManager.sort = (function(p1, p2) {
+                if(p1.weight_kg == "") {
+                    return -1 * (!OrderType.getAscending() ? -1 : 1);
+                } else if(p2.weight_kg == "") {
+                    return 1 * (!OrderType.getAscending() ? -1 : 1);
+                } else {
+                    return (p1.weight_kg - p2.weight_kg) * (!OrderType.getAscending() ? -1 : 1);
+                }
+            })
+        }
+    }
+        
+    
+    public static getPokemonList(){
+        return this.pokemonList;
+    }
 }

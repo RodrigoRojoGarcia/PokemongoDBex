@@ -1,5 +1,7 @@
 
-type MongoQueryReponse = {pokedex_number :number, is_legendary :number};
+type MongoQueryReponse = {pokedex_number :number, name :string, weight_kg :number | "", is_legendary :0 | 1};
+
+type ConfigAttribute = "color" | "pattern" | "background"; 
 
 class Connection {
 
@@ -37,6 +39,21 @@ class Connection {
         .fail(() => console.error("No se ha podido acceder al servidor para obtener al Pokémon " + id));
     }
 
+    public static getAllConfigAttributes(listener :(attributes :{color :string, pattern :string, background :string}) => void) {
+        Connection.ajaxGet("xml")
+        .done(r => listener(r))
+        .fail(() => console.error("No se ha podido acceder al servidor para obtener la configuración."));
+    }
+
+    public static sendConfigAttribute(attrib :ConfigAttribute, data :string, listener? :() => void) {
+        Connection.ajaxPost("xml/" + attrib + "/" + data, "")
+        .done(() => {
+            if(listener)
+                listener()
+            })
+        .fail(() => console.error("No se ha podido acceder al servidor para cambiar la configuración."));
+    }
+
     public static ping(target : "spring" | "mongo", listener :(success :boolean) => void) {
         Connection.ajaxGet("ping/" + target)
         .done(r => listener(r == "succ"))
@@ -50,9 +67,9 @@ class Connection {
         })
     }
 
-    public static ajaxPost(url :string, data :object | string) {
+    public static ajaxPost(url :string, data :object | string | HTMLFormElement) {
         var send :string;
-        var contentType :"application/json" | "text/plain";
+        var contentType :"application/json" | "text/plain" | "multipart/form-data";
         if(typeof(data) != "string") {
             send = JSON.stringify(data);
             contentType = "application/json"

@@ -10,34 +10,26 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "width", "height", "color", "userName"})
 
 public class Config {
-    private int width;
-    private int height;
+    
     private String color;
-    private String userName;
+    private String pattern;
+    private String background;
 
     public Config (){
-        width = 640;
-        height = 480;
+        pattern = "LineV";
+        background = "Hills";
         color = "red";
     }
 
-    @XmlElement(name = "width")
-    public int getWidth(){
-        return width;
+    @XmlElement(name = "pattern")
+    public String getPattern(){
+        return pattern;
     }
 
-    public void setWidth(int width){
-        this.width = width;
+    public void setPattern(String pattern){
+        this.pattern = pattern;
     }
 
-    @XmlElement(name = "height")
-    public int getHeight(){
-        return height;
-    }
-
-    public void setHeight(int height){
-        this.height = height;
-    }
 
     @XmlElement(name = "color")
     public String getColor(){
@@ -48,14 +40,15 @@ public class Config {
         this.color = color;
     }
 
-    @XmlElement(name = "userName")
-    public String getUserName(){
-        return userName;
+    @XmlElement(name = "background")
+    public String getBackground(){
+        return background;
     }
 
-    public void setUserName(String userName){
-        this.userName = userName;
+    public void setBackground(String background){
+        this.background = background;
     }
+
 
 
 }

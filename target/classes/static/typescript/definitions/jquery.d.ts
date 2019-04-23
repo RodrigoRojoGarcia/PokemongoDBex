@@ -9,6 +9,8 @@ declare class jQuery {
     first() :jQuery;
     /** Devuelve una consulta referida al último hijo */
     last() :jQuery;
+    /** Devuelve una consulta referida al padre */
+    parent() :jQuery;
     /** Ejecutar al hacer click */
     click(listener :() => void) :void;
     /** Devuelve o modifica el contenido sin interpretarlo como HTML */

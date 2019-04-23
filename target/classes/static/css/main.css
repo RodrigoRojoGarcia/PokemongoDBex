@@ -79,7 +79,7 @@ button:active {
 
 #upperArea {
     margin: 0 auto;
-    background-image: url("../images/interface/Interfaz_Higher.png");
+    background-image: url("../images/interface/Interfaz_Higher_red.png");
     background-size: 905px 550px;
     width:905px;
     height: 550px;
@@ -580,7 +580,7 @@ button:active {
     background: linear-gradient(rgb(97, 97, 110),rgb(119, 160, 235)) !important;
 }
 
-.selectedForm {
+.selected, #grid > .selected {
     border-color: red;
 }
 
@@ -627,8 +627,6 @@ button:active {
     left: 286px;
     text-align: center;
 }
-
-
 
 /*
 *    BARRA DE CAMBIO DE STATS
@@ -712,11 +710,11 @@ button:active {
 #lowerArea {
     top: -70px;
     margin: 0 auto;
-    background-image:url("../images/interface/Interface_Lower.png");
+    background-image:url("../images/interface/Interface_Lower_red.png");
     background-size: 100% 100%;
     width: 1150px;
     height:590px;
-    position:relative;
+    position: relative;
     z-index: -2;
 }
 
@@ -730,17 +728,38 @@ button:active {
     background-size:60px 60px;
     width: 700px;
     height: 400px;
+    display:flex;
 }
 
+.frame{
+    background-size: 100% 100%;
+    width: 723px;
+    height: 40px;
+    position: absolute;
+    left: -2px;
+}
+
+#upperFrame{
+    background-image: url('../images/interface/Interface_Neutral_Upper.png');
+    position: absolute;
+    top: 0px;
+}
+
+#lowerFrame{
+    background-image: url('../images/interface/Interface_Neutral_Lower.png');
+    position:absolute;
+    top: 380px;
+}
 /*
  *    CUADRÍCULA
  */
 
 #pokemonSelector{
-     width: 430px;
-     height: 325px;
-     display: flex;
-     flex-wrap: wrap;
+    margin:0px;
+    width: 430px;
+    height: 325px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #grid {
@@ -748,12 +767,12 @@ button:active {
     flex-wrap: wrap;
     overflow-x: hidden;
     overflow-y: scroll;
-    height: 325px;
+    height: 320px;
     width: 425px;
     float: left;
     padding: 10px;
     position: relative;
-    top: 20px;
+    top: 30px;
 }
 
 #loading, #noconnection {
@@ -869,11 +888,357 @@ button:active {
     background: rgb(139, 139, 139);
 }
 
-#filtersPanel {
-    float: right;
-    
+#configAndFiltersPanel{
+    position: relative;
+    left: 10px;
+    width:400px;
 }
-#moreFilters{
-    background-image:url("../images/interface/Button_Green_MoreFilters.png");
+#configButtons{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 322px;
+    left: 25px;
+}
+#configButtons > div{
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: 5px;
     background-size: 100% 100%;
 }
+
+#filtersText{
+    margin: 0 auto;
+    font-size:40px;
+    position: relative;
+    height: 40px;
+    top: 35px;
+}
+#configButton{
+    background-image: url('../images/interface/Button_Neutro_Config.png');
+}
+#orderButton {
+    background-image: url('../images/interface/Button_Neutro_Asc.png');
+}
+
+#typeOfOrderButtonToggle{
+    background-image: url('../images/interface/Button_Neutro_Number.png');
+}
+
+#addPokemonButton{
+    background-image: url('../images/interface/Button_Neutro_Add.png');
+}
+
+.bottomRightButton {
+    border-style: solid;
+    border-radius: 7px;
+    border-width: 1px;
+    transition: transform 0.1s linear;
+    z-index: 1;
+}
+
+.bottomRightButton:hover {
+    transform: scale(1.1);
+}
+
+.bottomRightButton:active {
+    transform: scale(1);
+}
+
+#filtersPanel {
+    float: right;
+    position: relative;
+    left: 15px;   
+}
+
+#filtersScreen {
+    width: 250px;
+    height: 300px;
+    position: absolute;
+    top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+#filtersScreen::-webkit-scrollbar {
+    width: 5px;
+}
+
+#filtersScreen::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+#filtersScreen::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: white;
+}
+#filtersScreen::-webkit-scrollbar-thumb:hover {
+    border-radius: 10px;
+    background: rgb(139, 139, 139);
+}
+
+#pokemonTypeFilter{
+    display:flex;
+    flex-wrap: wrap;
+    position: relative;
+
+}
+#pokemonTypeFilter > p{
+    font-size: 30px;
+    display: block;
+}
+#filterTypes{
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    top: -35px;
+}
+#filterTypes > div{
+    margin: 2px;
+    background-size: 70px 30px;
+    width: 70px;
+    height: 30px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 30px;
+    transition: transform 0.1s linear;
+}
+
+#filterTypes > div:hover {
+    transform: scale(1.1);
+}
+
+#filterTypes > div:active {
+    transform: scale(1);
+}
+
+#filterTypes > div.selected {
+    border-color: red;
+}
+#pokemonGenerationFilter{
+    display:flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+
+#pokemonGenerationFilter > p {
+    font-size: 30px;
+    display: block;
+}
+#filterGenerations{
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    top: -35px;
+}
+#filterGenerations > div {
+    width: 40px;
+    height: 40px;
+    background-color: lightgrey;
+    margin: 3px;
+    
+}
+#filterGenerations > div > p {
+    margin: 0 auto;
+    position: relative;
+    font-size: 30px;
+    
+}
+#filterGen-Custom{
+    width: 75px !important;
+}
+#filterGen-Custom > p{
+    position: relative;
+    left: 0px !important;
+}
+
+#pokemonLegendaryFilter{
+    display:flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+#pokemonLegendaryFilter > p {
+    font-size: 30px;
+    display: block;
+}
+#filterLegendary{
+    width:240px;
+    height: 30px;
+    position: relative;
+    left: 0px;
+    top: -20px;
+    background-color: lightgray;
+}
+#filterLegendary > p {
+    font-size: 30px;
+    margin: 0 auto;
+    position: relative;
+    left: 25px;
+}
+#pokemonPseudolegendaryFilter{
+    display:flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+#pokemonPseudolegendaryFilter > p {
+    font-size: 30px;
+    display: block;
+}
+#filterPseudolegendary{
+    width:240px;
+    height: 30px;
+    position: relative;
+    left: 0px;
+    top: -20px;
+    background-color: lightgray;
+}
+#filterPseudolegendary > p {
+    font-size: 30px;
+    margin: 0 auto;
+    position: relative;
+    left: 2px;
+}
+
+#configScreen{
+    position: absolute;
+    margin: 0  auto; 
+    border-radius: 10px;
+    /*background-image: url("../images/interface/.png");*/
+    background-color:rgba(0, 0, 0, 0.5);
+    background-size:60px 60px;
+    width: 700px;
+    height: 400px;
+    top: 100%;
+    display: flex;
+    
+}
+
+#configScreen > div {
+    /*flex-flow: row;*/
+    flex-wrap: nowrap;
+    display: inline-block;
+    *display: inline;
+
+    border-radius: 10px;
+    padding: 0;
+    width:33%;
+    height: 100%;
+    padding: 1px;
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+    
+}
+
+#configScreen > div > div {
+    position: relative;
+      width: 70%;
+      height: 10%;
+      margin: 5px auto;
+      align-self: center;
+      border-radius: 50% / 10%;
+      color: white;
+      text-align: center;
+      text-indent: .1em;
+     
+}
+
+.color_config:before {
+    content: '';
+      position: absolute;
+      top: 10%;
+      bottom: 10%;
+      right: -5%;
+      left: -5%;
+      background: inherit;
+      border-radius: 5% / 50%;
+}
+
+#color_Text{
+    font-size: 40px;
+    margin: 0 auto;
+    
+    text-align: center;
+    color: white;
+}
+
+#color_red {
+    background-color: red;
+}
+
+#color_yellow {
+    background-color: yellow;
+}
+
+#color_green {
+    background-color: green;
+}
+
+#color_blue {
+    background-color: blue;
+}
+
+#color_purple {
+    background-color: purple;
+}   
+
+#color_blueblack {
+    background-color: rgb(80, 220, 255);
+    border-left: 50% solid black;
+}
+
+#color_orangewhite {
+    background-color: orange;
+    border-left: 50% solid white;
+}
+
+#pattern_hill {
+    background-image: url("../images/interface/Pattern_Hill.png");
+    background-size: 10px 10px;
+}
+
+#pattern_linev {
+    background-image: url("../images/interface/Pattern_LineV.png");
+    background-size: 10px 10px;
+}
+
+#pattern_s {
+    background-image: url("../images/interface/Pattern_S.png");
+    background-size: 10px 10px;
+}
+
+#pattern_scircle {
+    background-image: url("../images/interface/Pattern_SCircle.png");
+    background-size: 10px 10px;
+}
+
+#pattern_square {
+    background-image: url("../images/interface/Pattern_Square.png");
+    background-size: 10px 10px;
+}
+
+#pattern_x{
+    background-image: url("../images/interface/Pattern_X.png");
+    background-size: 10px 10px;
+}
+
+#background_beach {
+    background-image: url("../images/interface/Background_Beach.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    padding-top: 50%;     
+}
+
+#background_hills{
+    background-image: url("../images/interface/Background_Hills.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat; 
+    padding-top: 50%;      
+}
+
+

@@ -31,6 +31,19 @@ class Connection {
             .done(pokemon => listener(pokemon))
             .fail(() => console.error("No se ha podido acceder al servidor para obtener al Pokémon " + id));
     }
+    static getAllConfigAttributes(listener) {
+        Connection.ajaxGet("xml")
+            .done(r => listener(r))
+            .fail(() => console.error("No se ha podido acceder al servidor para obtener la configuración."));
+    }
+    static sendConfigAttribute(attrib, data, listener) {
+        Connection.ajaxPost("xml/" + attrib + "/" + data, "")
+            .done(() => {
+            if (listener)
+                listener();
+        })
+            .fail(() => console.error("No se ha podido acceder al servidor para cambiar la configuración."));
+    }
     static ping(target, listener) {
         Connection.ajaxGet("ping/" + target)
             .done(r => listener(r == "succ"))

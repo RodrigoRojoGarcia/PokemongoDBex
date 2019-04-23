@@ -1,10 +1,16 @@
 $(document).ready(function() {
     ScreenManager.doQueries();
+    UIManager.doQueries();
+    UIManager.setFilterTypesImages();
+    UIManager.setSearch([[]]);
     ScreenManager.updateScreensWithState();
     ScreenManager.updateTypeCompatibilityScreen();
     ScreenManager.initPingControl();
     
     UIManager.assignInput();
+    UIManager.applyServerSettings();
     
-    Connection.getByCondition([], docs => ScreenManager.updateGrid(docs));
+    var search = UIManager.getSearch();
+    if(search)
+        Connection.getByMultipleConditions(search, docs => ScreenManager.updateGrid(docs));
 });

@@ -4,11 +4,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
 
-import com.mongodb.client.FindIterable;
+// import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Projections;
 
 import org.bson.Document;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +25,7 @@ public class MongoQueryController {
     public Collection<Document> getAll() {
         List<Document> ret;
         ret = Program.getPokedex().find().projection(
-            Projections.fields(Projections.include("pokedex_number","is_legendary"), Projections.exclude("_id"))).into(new ArrayList<Document>());
+            Projections.fields(Projections.include("pokedex_number","name","weight_kg","is_legendary"), Projections.exclude("_id"))).into(new ArrayList<Document>());
         return ret;
     }
 
@@ -49,8 +48,7 @@ public class MongoQueryController {
             orList.add(new Document("$and", andList));
         }
         ret = Program.getPokedex().find(new Document("$or", orList)).projection(
-            Projections.fields(Projections.include("pokedex_number","is_legendary"), Projections.exclude("_id"))).into(new ArrayList<Document>());
-        ret.sort((d1, d2) -> ((Integer) d1.get("pokedex_number")) - ((Integer) d2.get("pokedex_number")));
+            Projections.fields(Projections.include("pokedex_number","name","weight_kg","is_legendary"), Projections.exclude("_id"))).into(new ArrayList<Document>());
         return ret;
     }
     
@@ -60,7 +58,7 @@ public class MongoQueryController {
     }
     
     @PostMapping("/new")
-    public ResponseEntity<Pokemon> createNewPokemon(@RequestBody Pokemon pokemon){
+    public void createNewPokemon(@RequestBody Pokemon pokemon){
         if(nextId == -1) {
             nextId = (int) Program.getPokedex().countDocuments() + 1;
         } else {
@@ -68,9 +66,7 @@ public class MongoQueryController {
         }
         pokemon.setPokedexNumber(nextId);
         Program.getPokedex().insertOne(pokemon.toDocument());
-        return null;
     }
-
 
     // private static Collection<Document> iterableToCollection(FindIterable<Document> iterable) {
     //     List<Document> ret = new ArrayList<>();

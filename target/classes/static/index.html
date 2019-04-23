@@ -10,6 +10,7 @@
 
         <script src="javascript/state.js"></script>
         <script src="javascript/compatibilty.js"></script>
+        <script src="javascript/ordertype.js"></script>
         <script src="javascript/screenmanager.js"></script>
         <script src="javascript/uimanager.js"></script>
         <script src="javascript/pokemonfields.js"></script>
@@ -164,8 +165,14 @@
             <!-- Wrapper Zona inferior -->
             <div id = "lowerArea">
 
+                
+
                 <!-- Wrapper pantalla inferior -->
                 <div id = "lowerScreen">
+                    <!-- Marco superior de la pantalla inferior-->
+                    <div id="upperFrame" class="frame"></div>
+                    <!-- Marco inferior de la pantalla inferior-->
+                    <div id="lowerFrame" class="frame"></div>
                     <!-- Container de la cuadrícula-->
                     <div id="pokemonSelector">
                         <!-- Cuadricula con los pokemon -->
@@ -187,44 +194,140 @@
                         </div>
 
                     </div>
+
+                    <!-- Pantalla de la configuracion -->
+                    <div id = "configScreen">
+                        <div id = "colorColumn">
+                            <p id="color_Text">COLOR</p>
+                            <div id="color_red" class="color_config"></div>
+                            <div id="color_yellow" class="color_config"></div>
+                            <div id="color_green" class="color_config"></div>
+                            <div id="color_blue" class="color_config"></div>
+                            <div id="color_purple" class="color_config"></div>
+                            <div id="color_blueblack" class="color_config"></div>
+                            <div id="color_orangewhite" class="color_config"></div>
+                        </div>
+                        <div id = "patternColumn">
+                            <p id="color_Text">PATTERN</p>
+                            <div id="pattern_hill"></div>
+                            <div id="pattern_linev"></div>
+                            <div id="pattern_s"></div>
+                            <div id="pattern_scircle"></div>
+                            <div id="pattern_square"></div>
+                            <div id="pattern_x"></div>
+                        </div>
+                        
+                        <div id = "backgroundColumn">
+                            <p id="color_Text">BACKGROUND</p>
+                            <div id="background_beach"></div>
+                            <div id="background_hills"></div>
+                        </div>
+                    </div>
                     
                     <!-- Panel lateral con los filtros -->
-                    <div id = "filtersPanel">
+                    <div id = "configAndFiltersPanel">
 
                         <!-- El nombre del menu -->
                         <p id="filtersText">Filters</p>
 
-                        <!-- Lista de filtros rapidos en checkbox -->
-                        <div id = "checkboxFiltersList">
+                        <div id="configButtons">
+                            <!-- Boton para desplegar la pantalla de configuracion-->
+                            <div id="configButton" class="bottomRightButton"></div>
+                            <!-- Boton para cambiar el orden desc o asc-->
+                            <div id="orderButton" class="bottomRightButton"></div>
+                            <!-- Boton para ordenar alfabeticamente-->
+                            <div id="typeOfOrderButtonToggle" class="bottomRightButton"></div>
+                            <!-- Boton para añadir un pokemon a la Pokedex-->
+                            <div id="addPokemonButton" class="bottomRightButton"></div>
+                        </div>
+                        
+                        <!-- Pantalla con los filtros desplegados -->
+                        <div id = "filtersScreen">
+
+                            <!-- Wrapper con los tipos -->
+                            <div id = "pokemonTypeFilter">
+                                <p id="pokemonTypeFilterText">By Type</p>
+                                <div id="filterTypes">
+                                    <div id="filterType-bug"></div>
+                                    <div id="filterType-dark"></div>
+                                    <div id="filterType-dragon"></div>
+                                    <div id="filterType-electric"></div>
+                                    <div id="filterType-fairy"></div>
+                                    <div id="filterType-fighting"></div>
+                                    <div id="filterType-fire"></div>
+                                    <div id="filterType-flying"></div>
+                                    <div id="filterType-ghost"></div>
+                                    <div id="filterType-grass"></div>
+                                    <div id="filterType-ground"></div>
+                                    <div id="filterType-ice"></div>
+                                    <div id="filterType-normal"></div>
+                                    <div id="filterType-poison"></div>
+                                    <div id="filterType-psychic"></div>
+                                    <div id="filterType-rock"></div>
+                                    <div id="filterType-steel"></div>
+                                    <div id="filterType-water"></div>
+                                </div>
+                                
+                            </div>
+
+                            <!-- Wrapper con las generaciones -->
+                            <div id = "pokemonGenerationFilter">
+                                <p id="pokemonGenerationFilterText">By Generation</p>
+                                <div id="filterGenerations">
+                                    <div id="filterGen-1">
+                                        <p>I</p>
+                                    </div>
+                                    <div id="filterGen-2">
+                                        <p>II</p>
+                                    </div>
+                                    <div id="filterGen-3">
+                                        <p>III</p>
+                                    </div>
+                                    <div id="filterGen-4">
+                                        <p>IV</p>
+                                    </div>
+                                    <div id="filterGen-5">
+                                        <p>V</p>
+                                    </div>
+                                    <div id="filterGen-6">
+                                        <p>VI</p>
+                                    </div>
+                                    <div id="filterGen-7">
+                                        <p>VII</p>
+                                    </div>
+                                    <div id="filterGen-Custom">
+                                        <p>Custom</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="pokemonLegendaryFilter">
+                                <p id="pokemonLegendaryFilterText">By legendary</p>
+                                <div id="filterLegendary">
+                                    <p>Legendary=false</p>
+                                </div>
+                            </div>
+                            <div id="pokemonPseudolegendaryFilter">
+                                    <p id="pokemonPseudolegendaryFilterText">By legendary</p>
+                                    <div id="filterPseudolegendary">
+                                        <p>Pseudolegendary=false</p>
+                                    </div>
+                            </div>
+                            <!-- Wrapper con las categorías -->
+                            <div id = "pokemonCategoryFilter">
+
+                            </div>
 
                         </div>
-
-                        <!-- Boton para desplegar el menu de filtros -->
-                        <button type = "button" id = "moreFilters">More filters</button>
-
+                       
+                        
                     </div>
-
-                    <!-- Pantalla con los filtros desplegados -->
-                    <div id = "filtersScreen">
-
-                        <!-- Wrapper con los tipos -->
-                        <div id = "pokemonTypeFilter">
-
-                        </div>
-
-                        <!-- Wrapper con las generaciones -->
-                        <div id = "pokemonGenerationFilter">
-
-                        </div>
-
-                        <!-- Wrapper con las categorías -->
-                        <div id = "pokemonCategoryFilter">
-
-                        </div>
-
-                    </div>
+                    
+                    
 
                 </div>
+
+                
 
             </div>
             
