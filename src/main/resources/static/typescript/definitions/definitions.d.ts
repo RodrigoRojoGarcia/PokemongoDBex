@@ -1,7 +1,7 @@
 
 declare type MongoQuery = {
     field: PokemonFields,
-    value: string | number | boolean
+    value: string | number | boolean | {$regex :string, $options? :string}
 }
 
 declare type Pokemon = {

@@ -527,14 +527,11 @@ button:active {
 
 }
 
-
-
-
-
 #forms {
     background: rgb(199, 251, 255);
-    display:flex;
-    flex-wrap:wrap;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
     overflow-x: hidden;
     overflow-y: scroll;
 }
@@ -737,6 +734,7 @@ button:active {
     height: 40px;
     position: absolute;
     left: -2px;
+    z-index:2;
 }
 
 #upperFrame{
@@ -764,6 +762,7 @@ button:active {
 
 #grid {
     display: flex;
+    align-content: flex-start;
     flex-wrap: wrap;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -773,6 +772,26 @@ button:active {
     padding: 10px;
     position: relative;
     top: 30px;
+}
+
+#grid > .legendary {
+    background-color: rgb(253, 235, 67);
+}
+
+#grid > .pseudolegendary {
+    background-color: rgb(194, 170, 106);
+}
+
+#grid > .legendary:hover {
+    background-color: white;
+}
+
+#grid > .pseudolegendary:hover {
+    background-color: rgb(221, 211, 185);
+}
+
+#grid > .legendary:active, #grid > .pseudolegendary:active {
+    color: black;
 }
 
 #loading, #noconnection {
@@ -889,16 +908,20 @@ button:active {
 }
 
 #configAndFiltersPanel{
+    background-color: rgb(255, 254, 199);
     position: relative;
-    left: 10px;
-    width:400px;
+    left: -150px;
+    width:39%;
+    z-index: 1;
+    display:flex;
 }
 #configButtons{
     display: flex;
     flex-direction: row;
     position: relative;
-    top: 322px;
-    left: 25px;
+    top: 362px;
+    left: 120px;
+    z-index:2;
 }
 #configButtons > div{
     width: 40px;
@@ -913,11 +936,53 @@ button:active {
     font-size:40px;
     position: relative;
     height: 40px;
-    top: 35px;
+    top: 30px;
+    width: 267px;
+    padding-left: 20px;
 }
+
+#resetFilterButton {
+    margin:0 auto;
+    position: relative;
+    align-self: right;
+    top: 41px;
+    left: -50px;
+    width: 100px;
+    height: 20px;
+    text-align: center;
+    /* background-image:url("../images/interface/Button_Filters.png"); */
+    background-size: 60px 20px;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    background-color: lightgray;
+    transition: transform 0.1s linear, background-color 0.1s linear, color 0.1s linear;
+}
+
+#resetFilterButton > p {
+    font-size: 20px;
+    position: relative;
+    top: -21px;
+}
+
+#resetFilterButton:hover {
+    transform: scale(1.1);
+    background-color: white;
+    color: black;
+}
+
+#resetFilterButton:active {
+    transform: scale(1);
+    background-color: black;
+    color: white;
+}
+
 #configButton{
     background-image: url('../images/interface/Button_Neutro_Config.png');
 }
+
 #orderButton {
     background-image: url('../images/interface/Button_Neutro_Asc.png');
 }
@@ -946,59 +1011,66 @@ button:active {
     transform: scale(1);
 }
 
-#filtersPanel {
-    float: right;
-    position: relative;
-    left: 15px;   
-}
-
 #filtersScreen {
     width: 250px;
     height: 300px;
     position: absolute;
     top: 70px;
+    left:8px;
     display: flex;
     flex-wrap: wrap;
     overflow-x: hidden;
     overflow-y: scroll;
+    background-color: mediumaquamarine;
+    background-size: 100% 100%;
+    border-radius: 20px 0 0 20px;
 }
 
 #filtersScreen::-webkit-scrollbar {
     width: 5px;
+    height: 30px;
+
 }
 
 #filtersScreen::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
     border-radius: 10px;
+    
 }
 
 #filtersScreen::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background: white;
+    
 }
 #filtersScreen::-webkit-scrollbar-thumb:hover {
     border-radius: 10px;
     background: rgb(139, 139, 139);
 }
 
-#pokemonTypeFilter{
+#pokemonTypeFilter {
     display:flex;
     flex-wrap: wrap;
     position: relative;
 
 }
+
 #pokemonTypeFilter > p{
     font-size: 30px;
+    width: 100%;
     display: block;
 }
-#filterTypes{
+
+#filterTypes {
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    top: -35px;
+    top: -50px;
+    left: 10px;
 }
-#filterTypes > div{
+
+#filterTypes > div{    
     margin: 2px;
     background-size: 70px 30px;
     width: 70px;
@@ -1007,6 +1079,31 @@ button:active {
     border-width: 1px;
     border-radius: 30px;
     transition: transform 0.1s linear;
+}
+
+.pokemonHeaderFilterText {
+    position: relative;
+    top: -25px;
+    left: 10px;
+    font-size: 30px;
+    
+}
+
+#pokemonNameFilter{
+    position:relative;
+    height:70px;           
+}
+
+#pokemonNameFilterField {
+    position: relative;
+    background-color: rgb(255, 254, 199);
+    border-radius: 8px;
+    font-family: "pokemon";
+    font-size:23px;
+    outline: none;
+    padding-left: 10px;
+    top: -90px;
+    left: 10px;
 }
 
 #filterTypes > div:hover {
@@ -1020,6 +1117,30 @@ button:active {
 #filterTypes > div.selected {
     border-color: red;
 }
+
+.filterButton{
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.1s linear, background-color 0.1s linear;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+}
+
+.filterButton:hover {
+    background-color:rgb(116, 114, 114) !important;
+    transform: scale(1.1);
+}
+
+.filterButton:active {
+    background-color:rgb(99, 98, 98) !important;
+    transform: scale(1);
+}
+
+.filterButton.selected {
+    border-color: red;
+}
+
 #pokemonGenerationFilter{
     display:flex;
     flex-wrap: wrap;
@@ -1030,12 +1151,14 @@ button:active {
     font-size: 30px;
     display: block;
 }
+
 #filterGenerations{
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    top: -35px;
+    top: -50px;
 }
+
 #filterGenerations > div {
     width: 40px;
     height: 40px;
@@ -1043,15 +1166,19 @@ button:active {
     margin: 3px;
     
 }
+
 #filterGenerations > div > p {
     margin: 0 auto;
     position: relative;
     font-size: 30px;
+    top:5px;
     
 }
+
 #filterGen-Custom{
     width: 75px !important;
 }
+
 #filterGen-Custom > p{
     position: relative;
     left: 0px !important;
@@ -1062,46 +1189,67 @@ button:active {
     flex-wrap: wrap;
     position: relative;
 }
+
 #pokemonLegendaryFilter > p {
     font-size: 30px;
     display: block;
 }
-#filterLegendary{
+
+#filterLegendary, #filterPseudolegendary {
     width:240px;
     height: 30px;
     position: relative;
     left: 0px;
     top: -20px;
-    background-color: lightgray;
+    margin: 5px 0;
 }
-#filterLegendary > p {
+
+#filterLegendary.filterButton {
+    background-color: rgb(253, 235, 67);
+}
+
+#filterPseudolegendary.filterButton {
+    background-color: rgb(194, 170, 106);
+}
+
+#filterLegendary.filterButton:hover {
+    background-color: white !important;
+}
+
+#filterPseudolegendary.filterButton:hover {
+    background-color: rgb(221, 211, 185) !important;
+}
+
+#filterLegendary > p, #filterPseudolegendary > p {
     font-size: 30px;
     margin: 0 auto;
     position: relative;
-    left: 25px;
 }
-#pokemonPseudolegendaryFilter{
-    display:flex;
+
+#pokemonPseudolegendaryFilter {
+    display: flex;
     flex-wrap: wrap;
     position: relative;
 }
+
 #pokemonPseudolegendaryFilter > p {
     font-size: 30px;
     display: block;
 }
+
 #filterPseudolegendary{
-    width:240px;
+    width: 240px;
     height: 30px;
     position: relative;
     left: 0px;
     top: -20px;
     background-color: lightgray;
 }
+
 #filterPseudolegendary > p {
     font-size: 30px;
     margin: 0 auto;
     position: relative;
-    left: 2px;
 }
 
 #configScreen{
@@ -1113,16 +1261,15 @@ button:active {
     background-size:60px 60px;
     width: 700px;
     height: 400px;
-    top: 100%;
     display: flex;
-    
+    z-index: 10;
+    transition: transform 0.1s, opacity 0.1s;
 }
 
 #configScreen > div {
     /*flex-flow: row;*/
     flex-wrap: nowrap;
     display: inline-block;
-    *display: inline;
 
     border-radius: 10px;
     padding: 0;
@@ -1137,26 +1284,51 @@ button:active {
 
 #configScreen > div > div {
     position: relative;
-      width: 70%;
-      height: 10%;
-      margin: 5px auto;
-      align-self: center;
-      border-radius: 50% / 10%;
-      color: white;
-      text-align: center;
-      text-indent: .1em;
+    width: 70%;
+    height: 10%;
+    margin: 5px auto;
+    align-self: center;
+    border-radius: 50% / 10%;
+    color: white;
+    text-align: center;
+    text-indent: .1em;
      
 }
 
 .color_config:before {
     content: '';
-      position: absolute;
-      top: 10%;
-      bottom: 10%;
-      right: -5%;
-      left: -5%;
-      background: inherit;
-      border-radius: 5% / 50%;
+    position: absolute;
+    top: 10%;
+    bottom: 10%;
+    right: -5%;
+    left: -5%;
+    background: inherit;
+    border-radius: 5% / 50%;
+}
+
+#configScreen > #returnConfigButton {
+    position: fixed;
+    bottom: 0%;
+    left: 43%;
+    margin: initial;
+    width: 100px;
+    height: 30px;
+    background-color: gainsboro;
+    text-align: center;
+    font-size: 31px;
+    transition: transform 0.1s linear, background_color 0.1s linear, color 0.1s linear;
+}
+
+#configScreen > #returnConfigButton:hover {
+    transform: scale(1.1);
+    background-color: white;
+    color: black;
+}
+
+#configScreen > #returnConfigButton:active {
+    transform: scale(1);
+    background-color: black;
+    color: white;
 }
 
 #color_Text{
@@ -1187,7 +1359,7 @@ button:active {
     background-color: purple;
 }   
 
-#color_blueblack {
+#color_blackblue {
     background-color: rgb(80, 220, 255);
     border-left: 50% solid black;
 }
@@ -1241,4 +1413,14 @@ button:active {
     padding-top: 50%;      
 }
 
+.configButton {
+    transition: transform 0.1s linear;
+}
 
+.configButton:hover{
+    transform: scale(1.1);
+}
+
+.configButton:active{
+    transform: scale(1);
+}

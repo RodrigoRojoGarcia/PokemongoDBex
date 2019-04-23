@@ -13,6 +13,8 @@ declare class jQuery {
     parent() :jQuery;
     /** Ejecutar al hacer click */
     click(listener :() => void) :void;
+    /** Ejecutar al cambiar el valor */
+    change(listener :() => void) :void;
     /** Devuelve o modifica el contenido sin interpretarlo como HTML */
     text(content? :string) :string;
     /** Devuelve o modifica el contenido interpretándolo como HTML */

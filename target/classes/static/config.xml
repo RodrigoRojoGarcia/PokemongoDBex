@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
-  <color>orangewhite</color>
-  <pattern>S</pattern>
-  <background>Hills</background>
+  <color>blackblue</color>
+  <pattern>x</pattern>
+  <background>hills</background>
 </config>
 

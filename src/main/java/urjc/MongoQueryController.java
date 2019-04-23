@@ -25,7 +25,7 @@ public class MongoQueryController {
     public Collection<Document> getAll() {
         List<Document> ret;
         ret = Program.getPokedex().find().projection(
-            Projections.fields(Projections.include("pokedex_number","name","weight_kg","is_legendary"), Projections.exclude("_id"))).into(new ArrayList<Document>());
+            Projections.fields(Projections.include("pokedex_number","name","weight_kg","is_legendary","pseudolegendary"), Projections.exclude("_id"))).into(new ArrayList<Document>());
         return ret;
     }
 
@@ -48,7 +48,7 @@ public class MongoQueryController {
             orList.add(new Document("$and", andList));
         }
         ret = Program.getPokedex().find(new Document("$or", orList)).projection(
-            Projections.fields(Projections.include("pokedex_number","name","weight_kg","is_legendary"), Projections.exclude("_id"))).into(new ArrayList<Document>());
+            Projections.fields(Projections.include("pokedex_number","name","weight_kg","is_legendary","pseudolegendary"), Projections.exclude("_id"))).into(new ArrayList<Document>());
         return ret;
     }
     

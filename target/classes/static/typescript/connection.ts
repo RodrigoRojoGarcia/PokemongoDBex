@@ -1,5 +1,5 @@
 
-type MongoQueryReponse = {pokedex_number :number, name :string, weight_kg :number | "", is_legendary :0 | 1};
+type MongoQueryReponse = {pokedex_number :number, name :string, weight_kg :number | "", is_legendary :0 | 1, pseudolegendary :boolean};
 
 type ConfigAttribute = "color" | "pattern" | "background"; 
 

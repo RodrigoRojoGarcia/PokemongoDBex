@@ -1,6 +1,9 @@
 urjc\Program.class
+urjc\PingController.class
 urjc\MongoQuery.class
+urjc\ConfigController$ConfigControllerReponse.class
 urjc\PokemonFields.class
+urjc\ConfigController.class
 urjc\AuxiliaryMethods.class
 urjc\XMLManager.class
 urjc\ServerConfiguration$1.class

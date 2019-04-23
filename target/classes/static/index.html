@@ -196,41 +196,36 @@
                     </div>
 
                     <!-- Pantalla de la configuracion -->
-                    <div id = "configScreen">
+                    <div id = "configScreen" style="display: none" class="loadingHidden">
                         <div id = "colorColumn">
                             <p id="color_Text">COLOR</p>
-                            <div id="color_red" class="color_config"></div>
-                            <div id="color_yellow" class="color_config"></div>
-                            <div id="color_green" class="color_config"></div>
-                            <div id="color_blue" class="color_config"></div>
-                            <div id="color_purple" class="color_config"></div>
-                            <div id="color_blueblack" class="color_config"></div>
-                            <div id="color_orangewhite" class="color_config"></div>
+                            <div id="color_red" class="color_config configButton"></div>
+                            <div id="color_yellow" class="color_config configButton"></div>
+                            <div id="color_green" class="color_config configButton"></div>
+                            <div id="color_blue" class="color_config configButton"></div>
+                            <div id="color_purple" class="color_config configButton"></div>
+                            <div id="color_blackblue" class="color_config configButton"></div>
+                            <div id="color_orangewhite" class="color_config configButton"></div>
                         </div>
                         <div id = "patternColumn">
                             <p id="color_Text">PATTERN</p>
-                            <div id="pattern_hill"></div>
-                            <div id="pattern_linev"></div>
-                            <div id="pattern_s"></div>
-                            <div id="pattern_scircle"></div>
-                            <div id="pattern_square"></div>
-                            <div id="pattern_x"></div>
+                            <div id="pattern_hill" class="configButton"></div>
+                            <div id="pattern_linev" class="configButton"></div>
+                            <div id="pattern_s" class="configButton"></div>
+                            <div id="pattern_scircle" class="configButton"></div>
+                            <div id="pattern_square" class="configButton"></div>
+                            <div id="pattern_x" class="configButton"></div>
                         </div>
                         
                         <div id = "backgroundColumn">
                             <p id="color_Text">BACKGROUND</p>
-                            <div id="background_beach"></div>
-                            <div id="background_hills"></div>
+                            <div id="background_beach" class="configButton"></div>
+                            <div id="background_hills" class="configButton"></div>
                         </div>
+                        <div id="returnConfigButton">RETURN</div>
                     </div>
-                    
-                    <!-- Panel lateral con los filtros -->
-                    <div id = "configAndFiltersPanel">
 
-                        <!-- El nombre del menu -->
-                        <p id="filtersText">Filters</p>
-
-                        <div id="configButtons">
+                    <div id="configButtons">
                             <!-- Boton para desplegar la pantalla de configuracion-->
                             <div id="configButton" class="bottomRightButton"></div>
                             <!-- Boton para cambiar el orden desc o asc-->
@@ -238,15 +233,31 @@
                             <!-- Boton para ordenar alfabeticamente-->
                             <div id="typeOfOrderButtonToggle" class="bottomRightButton"></div>
                             <!-- Boton para añadir un pokemon a la Pokedex-->
-                            <div id="addPokemonButton" class="bottomRightButton"></div>
+                            <!-- <div id="addPokemonButton" class="bottomRightButton"></div> -->
+                        </div>
+                    <!-- Panel lateral con los filtros -->
+                    <div id = "configAndFiltersPanel">
+
+                        <!-- El nombre del menu -->
+                        <p id="filtersText">Filters</p>
+
+                        <!-- Botonsito rico wapo del deleteo de filtritos -->
+                        <div id="resetFilterButton">
+                            <p>RESET</p>
                         </div>
                         
                         <!-- Pantalla con los filtros desplegados -->
                         <div id = "filtersScreen">
 
+                            <div id = "pokemonNameFilter">
+                                <p id="pokemonNameFilterText" class="pokemonHeaderFilterText">By Name</p>
+                                <input type="text" id="pokemonNameFilterField"/>
+                            </div>
+
                             <!-- Wrapper con los tipos -->
                             <div id = "pokemonTypeFilter">
-                                <p id="pokemonTypeFilterText">By Type</p>
+                                <p id="pokemonTypeFilterText" class="pokemonHeaderFilterText">By Type</p>
+                                
                                 <div id="filterTypes">
                                     <div id="filterType-bug"></div>
                                     <div id="filterType-dark"></div>
@@ -267,51 +278,50 @@
                                     <div id="filterType-steel"></div>
                                     <div id="filterType-water"></div>
                                 </div>
-                                
                             </div>
 
                             <!-- Wrapper con las generaciones -->
                             <div id = "pokemonGenerationFilter">
-                                <p id="pokemonGenerationFilterText">By Generation</p>
+                                <p id="pokemonGenerationFilterText" class="pokemonHeaderFilterText">By Generation</p>
                                 <div id="filterGenerations">
-                                    <div id="filterGen-1">
+                                    <div id="filterGen-1" class="filterButton">
                                         <p>I</p>
                                     </div>
-                                    <div id="filterGen-2">
+                                    <div id="filterGen-2" class="filterButton">
                                         <p>II</p>
                                     </div>
-                                    <div id="filterGen-3">
+                                    <div id="filterGen-3" class="filterButton">
                                         <p>III</p>
                                     </div>
-                                    <div id="filterGen-4">
+                                    <div id="filterGen-4" class="filterButton">
                                         <p>IV</p>
                                     </div>
-                                    <div id="filterGen-5">
+                                    <div id="filterGen-5" class="filterButton">
                                         <p>V</p>
                                     </div>
-                                    <div id="filterGen-6">
+                                    <div id="filterGen-6" class="filterButton">
                                         <p>VI</p>
                                     </div>
-                                    <div id="filterGen-7">
+                                    <div id="filterGen-7" class="filterButton">
                                         <p>VII</p>
                                     </div>
-                                    <div id="filterGen-Custom">
+                                    <!-- <div id="filterGen-Custom" class="filterButton">
                                         <p>Custom</p>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
                             <div id="pokemonLegendaryFilter">
-                                <p id="pokemonLegendaryFilterText">By legendary</p>
-                                <div id="filterLegendary">
-                                    <p>Legendary=false</p>
+                                <!-- <p id="pokemonLegendaryFilterText" class="pokemonHeaderFilterText">By legendary</p> -->
+                                <div id="filterLegendary" class="filterButton">
+                                    <p>By Legendary</p>
                                 </div>
                             </div>
                             <div id="pokemonPseudolegendaryFilter">
-                                    <p id="pokemonPseudolegendaryFilterText">By legendary</p>
-                                    <div id="filterPseudolegendary">
-                                        <p>Pseudolegendary=false</p>
-                                    </div>
+                                <!-- <p id="pokemonPseudolegendaryFilterText" class="pokemonHeaderFilterText">By pseudolegendary</p> -->
+                                <div id="filterPseudolegendary" class="filterButton">
+                                    <p>By Pseudolegendary</p>
+                                </div>
                             </div>
                             <!-- Wrapper con las categorías -->
                             <div id = "pokemonCategoryFilter">
@@ -319,19 +329,9 @@
                             </div>
 
                         </div>
-                       
-                        
                     </div>
-                    
-                    
-
                 </div>
-
-                
-
             </div>
-            
         </div>              
-        
     </body>
 </html>
