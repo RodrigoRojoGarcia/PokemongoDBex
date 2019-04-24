@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 public class XMLManager {
+    private final static String tempPath = "C:/Temp/";
     private final static String path = System.getProperty("user.dir") + "/src/main/resources/static/";
     private final static String relativePath = "src/main/resources/static/";
 
@@ -35,12 +36,13 @@ public class XMLManager {
         }
     }
 
-    
-
     public static void createXML(){
         try{
-            File configFile = new File(relativePath + "config.xml");
+            File configFolder = new File(tempPath);
+            File configFile = new File(tempPath + "config.xml");
             if(!configFile.exists()) {
+                configFolder.mkdirs();
+                configFile.createNewFile();
                 Element config = new Element("config");
                 Document doc = new Document(config); //Establece el config como raiz
                 Config conf = new Config();
@@ -86,7 +88,7 @@ public class XMLManager {
 
             //Crea el fichero con los datos
             xmlOutput.setFormat(Format.getPrettyFormat());
-            xmlOutput.output(doc, new FileOutputStream(new File(relativePath + "config.xml")));
+            xmlOutput.output(doc, new FileOutputStream(new File(tempPath + "config.xml")));
 
         } catch(Exception e){
             System.out.println(e.getMessage());
@@ -97,7 +99,7 @@ public class XMLManager {
         Document doc = null;
         try{
             SAXBuilder builder = new SAXBuilder();
-            File xml = new File(path+file);
+            File xml = new File(tempPath+file);
 
             doc = (Document) builder.build(xml);
         } catch (Exception e){

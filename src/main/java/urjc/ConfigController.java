@@ -83,6 +83,9 @@ public class ConfigController {
 
     @PostMapping("/color/{color}")
     public static void setPokedexColor(@PathVariable String color){
+        if(color == null)
+            return;
+
         Document doc = XMLManager.getDoc("config.xml");
         XMLManager.updateXML(color, doc.getRootElement().getChildText("pattern"),
             doc.getRootElement().getChildText("background"));
@@ -90,6 +93,9 @@ public class ConfigController {
 
     @PostMapping("/pattern/{pattern}")
     public static void setPokedexPattern(@PathVariable String pattern){
+        if(pattern == null)
+            return;
+
         Document doc = XMLManager.getDoc("config.xml");
         XMLManager.updateXML(doc.getRootElement().getChildText("color"), pattern,
             doc.getRootElement().getChildText("background"));
@@ -97,6 +103,9 @@ public class ConfigController {
 
     @PostMapping("/background/{background}")
     public static void setPokedexBackground(@PathVariable String background){
+        if(background == null)
+            return;
+
         Document doc = XMLManager.getDoc("config.xml");
         XMLManager.updateXML(doc.getRootElement().getChildText("color"), doc.getRootElement().getChildText("pattern"),
             background);

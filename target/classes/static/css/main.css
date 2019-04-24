@@ -1369,44 +1369,44 @@ button:active {
     border-left: 50% solid white;
 }
 
-#pattern_hill {
+#pattern_Hill {
     background-image: url("../images/interface/Pattern_Hill.png");
     background-size: 10px 10px;
 }
 
-#pattern_linev {
+#pattern_LineV {
     background-image: url("../images/interface/Pattern_LineV.png");
     background-size: 10px 10px;
 }
 
-#pattern_s {
+#pattern_S {
     background-image: url("../images/interface/Pattern_S.png");
     background-size: 10px 10px;
 }
 
-#pattern_scircle {
+#pattern_SCircle {
     background-image: url("../images/interface/Pattern_SCircle.png");
     background-size: 10px 10px;
 }
 
-#pattern_square {
+#pattern_Square {
     background-image: url("../images/interface/Pattern_Square.png");
     background-size: 10px 10px;
 }
 
-#pattern_x{
+#pattern_X{
     background-image: url("../images/interface/Pattern_X.png");
     background-size: 10px 10px;
 }
 
-#background_beach {
+#background_Beach {
     background-image: url("../images/interface/Background_Beach.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     padding-top: 50%;     
 }
 
-#background_hills{
+#background_Hills{
     background-image: url("../images/interface/Background_Hills.png");
     background-size: 100% 100%;
     background-repeat: no-repeat; 

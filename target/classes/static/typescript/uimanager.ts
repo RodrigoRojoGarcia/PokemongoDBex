@@ -106,15 +106,15 @@ class UIManager {
         ];
 
         UIManager.$patterConfigButton = [
-            $("#pattern_hill"),
-            $("#pattern_linev"),
-            $("#pattern_s"),
-            $("#pattern_scircle"),
-            $("#pattern_square"),
-            $("#pattern_x")
+            $("#pattern_Hill"),
+            $("#pattern_LineV"),
+            $("#pattern_S"),
+            $("#pattern_SCircle"),
+            $("#pattern_Square"),
+            $("#pattern_X")
         ];
 
-        UIManager.$backgroundConfigButton = [$("#background_beach"),$("#background_hills")];
+        UIManager.$backgroundConfigButton = [$("#background_Beach"),$("#background_Hills")];
 
         UIManager.$returnConfigButton = $("#returnConfigButton");
     }
